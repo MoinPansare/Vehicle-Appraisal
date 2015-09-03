@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment3">
+
+    <vehicleappraisal.com.vehicleappraisal.Tabs.MyDrawView
+        android:background="@drawable/bg123"
+        android:id="@+id/myDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="520dp" />
+
+    <Button
+        android:id ="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_gravity="left|bottom"/>
+
+</FrameLayout>

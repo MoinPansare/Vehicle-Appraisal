@@ -1,20 +1,47 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="vehicleappraisal.com.vehicleappraisal.Home">
 
-    <vehicleappraisal.com.vehicleappraisal.Tabs.SlidingTabLayout
-        android:id="@+id/slidingtabLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:background="@drawable/icon_m"/>
 
-    <vehicleappraisal.com.vehicleappraisal.Tabs.CustomPager
-        android:id="@+id/viewPagerHome"
+    <LinearLayout
+        android:alpha="0.8"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background_gradient">
+
+    </LinearLayout>
+
+    <include layout="@layout/app_bar"
+        android:id="@+id/app_bar_id"/>
+
+    <LinearLayout
+        android:layout_below="@+id/app_bar_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <vehicleappraisal.com.vehicleappraisal.Tabs.SlidingTabLayout
+            android:background="@color/primaryColor"
+            android:id="@+id/slidingtabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <vehicleappraisal.com.vehicleappraisal.Tabs.CustomPager
+            android:id="@+id/viewPagerHome"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
 
 
-</LinearLayout>
+
+
+</RelativeLayout>

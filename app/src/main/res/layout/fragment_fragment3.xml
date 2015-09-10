@@ -1,13 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment3">
+    tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment3"
+    android:orientation="vertical">
+
+    <!--<vehicleappraisal.com.vehicleappraisal.Tabs.MyDrawView-->
+        <!--android:background="@drawable/bg123"-->
+        <!--android:id="@+id/myDrawer"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="520dp" />-->
 
     <vehicleappraisal.com.vehicleappraisal.Tabs.MyDrawView
         android:background="@drawable/bg123"
         android:id="@+id/myDrawer"
         android:layout_width="match_parent"
-        android:layout_height="520dp" />
+        android:layout_height="520dp"
+        />
 
     <Button
         android:id ="@+id/saveButton"
@@ -16,4 +24,4 @@
         android:text="Save"
         android:layout_gravity="left|bottom"/>
 
-</FrameLayout>
+</LinearLayout>

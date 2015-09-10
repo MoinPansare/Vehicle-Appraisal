@@ -1,10 +1,317 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+    <!--<TextView android:layout_width="match_parent" android:layout_height="match_parent"-->
+    <!--android:text="@string/hello_blank_fragment" />-->
 
-</FrameLayout>
+    <!--<com.kyleduo.switchbutton.SwitchButton-->
+    <!--android:id="@+id/sb_default"-->
+    <!--style="@style/StyleTitleText"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ServiceHistoryTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Service History ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/ServiceHistory_spinner_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="ServiceHistory"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textViewTextSize" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ServicePackageTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Service Package ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/ServicePackage_spinner_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Service Package"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/textViewTextSize" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/MantainTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="How Do You Mantain Your Vehicle ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <Spinner
+                    android:id="@+id/Mantain_spinner_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:text="Mantain"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/textViewTextSize" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/VanImportedTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Van Imported ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/vanImportedSwitch"
+                        style="@style/StyleTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/V5CTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="V5C doc ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/V5CSwitch"
+                        style="@style/StyleTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/KeySetTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="2 Set Of Keys ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/KeySetSwitch"
+                        style="@style/StyleTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/WarrantyTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Do You Have Warranty On This Van ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:gravity="center"
+                        android:id="@+id/WarrantySwitch"
+                        style="@style/StyleTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/AccidentTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="Has Your Vehicle Been Involved In Any Accidents ?:"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <com.kyleduo.switchbutton.SwitchButton
+                        android:id="@+id/AccidentSwitch"
+                        style="@style/StyleTitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <Button
+                android:id="@+id/nextButton2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NEXT"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

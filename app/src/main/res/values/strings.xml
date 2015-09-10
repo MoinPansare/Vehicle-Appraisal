@@ -9,8 +9,14 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     
     <string-array name="tabs">
-        <item>Tab 1</item>
-        <item>Tab 2</item>
-        <item>Tab 3</item>
+        <item>Form</item>
+        <item>Service History</item>
+        <item>Damage</item>
     </string-array>
+    
+    
+    <string name="userName">vehicleappraisal.com.vehicleappraisal.userName</string>
+    <string name="accessToken">vehicleappraisal.com.vehicleappraisal.Token</string>
+    <string name="title_activity_sketch">Sketch</string>
+    
 </resources>

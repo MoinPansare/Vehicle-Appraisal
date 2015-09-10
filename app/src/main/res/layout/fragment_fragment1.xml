@@ -1,10 +1,308 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:float="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
     tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment1">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ScrollView
+        android:background="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <vehicleappraisal.com.vehicleappraisal.external.FloatLabeledEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Reg No." />
+            </vehicleappraisal.com.vehicleappraisal.external.FloatLabeledEditText>
+
+            <!--<com.wrapp.floatlabelededittext.FloatLabeledEditText-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginBottom="5dp">-->
+
+                <!--<EditText-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Reg No." />-->
+            <!--</com.wrapp.floatlabelededittext.FloatLabeledEditText>-->
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enine" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/date1FromPicker"
+                android:textSize="@dimen/textViewTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reg. Date"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:background="@color/primaryColor"
+                android:textColor="@android:color/white"
+                android:id="@+id/selectDate1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Date"
+                android:layout_marginLeft="13dp" />
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Model" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Variant" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/MotDueTextFeild"
+                android:textSize="@dimen/textViewTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MOT due"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:background="@color/primaryColor"
+                android:textColor="@android:color/white"
+                android:id="@+id/selectDate2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Date"
+                android:layout_marginLeft="13dp" />
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Extra" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Make" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/RefDateTextFeild"
+                android:textSize="@dimen/textViewTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RFL Date"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:background="@color/primaryColor"
+                android:textColor="@android:color/white"
+                android:id="@+id/selectDate3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Date"
+                android:layout_marginLeft="13dp" />
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mileage" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Owner" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                float:fletTextAppearance="@style/floatlabelededittext"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp">
+
+                <EditText
+                    android:textColorHint="@color/white"
+                    android:textColor="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Expected Value" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+
+            <TextView
+                android:textColor="@color/white"
+                android:id="@+id/ColorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Color"
+                android:textSize="20sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <Spinner
+                android:id="@+id/color_spinner_info"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textViewTextSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
+
+            <Button
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="18sp"
+                android:background="@color/primaryColor"
+                android:textColor="@android:color/white"
+                android:id="@+id/nextButton1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="NEXT"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

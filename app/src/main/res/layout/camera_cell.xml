@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/camera_Cell_ImageView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/bg123"/>
+
+    <RelativeLayout
+        android:background="@android:color/holo_red_dark"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="5dp" >
+
+        <ImageView
+            android:id="@+id/deleteImage"
+            android:background="@android:color/holo_green_light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            />
+
+        </RelativeLayout>
+
+</RelativeLayout>

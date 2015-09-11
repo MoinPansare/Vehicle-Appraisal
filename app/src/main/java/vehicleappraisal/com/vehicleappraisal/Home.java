@@ -38,7 +38,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vehicleappraisal.com.vehicleappraisal.Tabs.CustomPager;
 import vehicleappraisal.com.vehicleappraisal.Tabs.DrawingFragment;
@@ -50,7 +52,7 @@ import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
 import vehicleappraisal.com.vehicleappraisal.network.VolleySingelton;
 
 
-public class Home extends AppCompatActivity implements DrawingFragment.ButtonForSource {
+public class Home extends AppCompatActivity implements DrawingFragment.ButtonForSource,Fragment1.frg1Interface,Fragment2.frg2Interface {
 
     String userName,Token;
 
@@ -119,46 +121,42 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                         try {
                             JSONArray colorArray = response.getJSONArray("Colours");
                             ArrayList<String> colorSpinnerData = new ArrayList<String>();
+                            ArrayList<String> colorSpinnerDataIndex = new ArrayList<String>();
 
                             for(int i=0;i<colorArray.length();i++){
                                 JSONObject obj = colorArray.getJSONObject(i);
                                 colorSpinnerData.add(obj.get("Colour").toString());
+                                colorSpinnerDataIndex.add(obj.get("id").toString());
                             }
 
 
                             JSONArray VehicleMaintenanceArr = response.getJSONArray("VehicleMaintenance");
                             ArrayList<String> MantainSpinnerData = new ArrayList<String>();
+                            ArrayList<String> MantainSpinnerDataIndex = new ArrayList<String>();
 
                             for(int i=0;i<VehicleMaintenanceArr.length();i++){
                                 JSONObject obj = VehicleMaintenanceArr.getJSONObject(i);
                                 MantainSpinnerData.add(obj.get("VehicleMaintenanceDescription").toString());
+                                MantainSpinnerDataIndex.add(obj.get("Maintenanceid").toString());
                             }
 
                             JSONArray VehicleServiceHistoryArr = response.getJSONArray("VehicleServiceHistory");
                             ArrayList<String> serviecHistorySpinnerData = new ArrayList<String>();
+                            ArrayList<String> serviecHistorySpinnerDataIndex = new ArrayList<String>();
 
                             for(int i=0;i<VehicleServiceHistoryArr.length();i++){
                                 JSONObject obj = VehicleServiceHistoryArr.getJSONObject(i);
                                 serviecHistorySpinnerData.add(obj.get("ServiceHistoryDescription").toString());
+                                serviecHistorySpinnerDataIndex.add(obj.get("ServiceHistoryID").toString());
                             }
 
+                            frg1.setColors(colorSpinnerData, colorSpinnerDataIndex);
 
+                            frg2.setMantainSpinnerData(MantainSpinnerData,MantainSpinnerDataIndex);
 
-                            JSONArray ServicePackageSpinnerArr = response.getJSONArray("VehicleServiceHistory");
-                            ArrayList<String> ServicePackageSpinnerData = new ArrayList<String>();
+                            frg2.setserviecHistorySpinnerData(serviecHistorySpinnerData,serviecHistorySpinnerDataIndex);
 
-                            for(int i=0;i<ServicePackageSpinnerArr.length();i++){
-                                JSONObject obj = ServicePackageSpinnerArr.getJSONObject(i);
-                                ServicePackageSpinnerData.add(obj.get("ServiceHistoryDescription").toString());
-                            }
-
-                            frg1.setColors(colorSpinnerData);
-
-                            frg2.setMantainSpinnerData(MantainSpinnerData);
-
-                            frg2.setserviecHistorySpinnerData(serviecHistorySpinnerData);
-
-                            frg2.setServicePackageSpinnerData(ServicePackageSpinnerData);
+//                            frg2.setServicePackageSpinnerData(ServicePackageSpinnerData);
 
 
 
@@ -202,7 +200,9 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
         frg1 = Fragment1.getInstance();
         frg1.setfragmentManager(getSupportFragmentManager());
+        frg1.setMy_frg1Interface(this);
         frg2 = Fragment2.getInstance();
+        frg2.setMy_frg2Interface(this);
         frg3 = DrawingFragment.getInstance();
         frg3.setMyContext(this);
         frg3.setMy_ButtonForSource(this);
@@ -271,6 +271,8 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
     }
 
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -311,6 +313,107 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
             }
         }
     }
+
+    @Override
+    public void data1Entered() {
+        mPager.setPagingEnabled(true);
+        mPager.setCurrentItem(1);
+        mPager.setPagingEnabled(false);
+    }
+
+    @Override
+    public void data2Entered() {
+        mPager.setPagingEnabled(true);
+        mPager.setCurrentItem(2);
+        mPager.setPagingEnabled(false);
+    }
+
+    @Override
+    public void navigateToPage1() {
+        mPager.setPagingEnabled(true);
+        mPager.setCurrentItem(0);
+        mPager.setPagingEnabled(false);
+    }
+
+    @Override
+    public void submitDataToServer() {
+        JSONObject params = new JSONObject();
+        try {
+            params.put("RegNo", mySingeltonData.regNo);
+            params.put("Model", mySingeltonData.model);
+//
+            params.put("Variant", mySingeltonData.variant);
+            params.put("Extras", mySingeltonData.extra);
+//
+            params.put("Mileage", mySingeltonData.mileage);
+            params.put("MOTDueDate", mySingeltonData.motDate);
+//
+            params.put("RegDate", mySingeltonData.regDate);
+            params.put("NoOfOwners", getIntFromString(mySingeltonData.owner));
+//
+            params.put("RFLExpiryDate", mySingeltonData.rflDate);
+            params.put("VanImported", mySingeltonData.vanImported);
+//
+            params.put("V5CDoc", mySingeltonData.v5cCode);
+            params.put("SetOfKeys", mySingeltonData.keySets);
+//
+            params.put("Warranty", mySingeltonData.warrenty);
+            params.put("Accidents", mySingeltonData.accidents);
+//
+            params.put("VehicleMaintainID", getIntFromString(mySingeltonData.howDoYouMantain));
+            params.put("ServicePackage", getIntFromString(mySingeltonData.servicePackage));
+//
+            params.put("ColourID", getIntFromString(mySingeltonData.color));
+            params.put("ServiceHistoryID", getIntFromString(mySingeltonData.serviceHistory));
+//
+            params.put("AppraisalStatusID", 1);
+            params.put("AppraisalDate", DateFormat.getDateTimeInstance().format(new Date()).toString());
+//
+            params.put("Make", mySingeltonData.make);
+            params.put("ExpectedValue", mySingeltonData.expectedValue);
+//
+            params.put("UserNotes", " ");
+            params.put("TokenValue", this.Token);
+
+            params.put("Engine", mySingeltonData.engine);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String url = "http://testwip.northside.co.uk/Broker/Broker.svc/CreateAppraisal";
+
+
+        JsonObjectRequest finalDataPOSTRequest = new JsonObjectRequest(Request.Method.POST, url, params,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mPager.setPagingEnabled(true);
+                        mPager.setCurrentItem(0);
+                        mPager.setPagingEnabled(false);
+                        Toast.makeText(Home.this,"All Done",Toast.LENGTH_LONG).show();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(Home.this,"There Was Some Error Please Try Again In Some Time",Toast.LENGTH_LONG).show();
+                    }
+                }
+
+        );
+
+        Log.d("Sending Data", params.toString());
+
+        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(finalDataPOSTRequest);
+    }
+
+    private int getIntFromString(String str){
+        return Integer.parseInt(str);
+    }
+
 
 
 

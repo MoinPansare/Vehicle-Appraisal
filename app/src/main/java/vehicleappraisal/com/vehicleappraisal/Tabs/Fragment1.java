@@ -11,11 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
@@ -23,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import vehicleappraisal.com.vehicleappraisal.R;
+import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
+import vehicleappraisal.com.vehicleappraisal.network.MyApplication;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,13 +35,31 @@ import vehicleappraisal.com.vehicleappraisal.R;
 public class Fragment1 extends Fragment {
 
 //    private MFCalendarView myCalender1;
+
+    private String ownerSpinnerValue = "";
+    private String colorSpinnerVlaue = "";
+
+    private frg1Interface my_frg1Interface;
+
     FragmentManager my_FragmentManager;
     private Button date1,date2,date3;
+    private Button nextButton;
     private TextView date1FromPicker,date2FromPicker,date3FromPicker;
 
-    private Spinner myColorSpinner;
+    private Spinner myColorSpinner,ownerSpinner;
 
     private ArrayList<String> colorSpinnerData;
+    private ArrayList<String> colorSpinnerDataIndex;
+
+    private ArrayList<String> ownerSpinnerData;
+
+    private SingeltonData mySingelton = SingeltonData.getMy_SingeltonData_Reference();
+
+    private EditText regNo_EditText,engine_EditText,model_EditText,variant_EditText,extra_EditText,make_EditText,mileage_EditText,owner_EditText,expectedValue_EditText;
+
+    public void setMy_frg1Interface(frg1Interface my_frg1Interface) {
+        this.my_frg1Interface = my_frg1Interface;
+    }
 
     public Fragment1() {
         // Required empty public constructor
@@ -57,7 +80,18 @@ public class Fragment1 extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
-//        myCalender1 = (MFCalendarView)view.findViewById(R.id.mFCalendarView);
+
+        regNo_EditText = (EditText)view.findViewById(R.id.regNoEditText);
+        engine_EditText = (EditText)view.findViewById(R.id.engineEditText);
+        model_EditText = (EditText)view.findViewById(R.id.modelEditText);
+        variant_EditText = (EditText)view.findViewById(R.id.variantEditText);
+        extra_EditText = (EditText)view.findViewById(R.id.extraEditText);
+        make_EditText = (EditText)view.findViewById(R.id.makeEditText);
+        mileage_EditText = (EditText)view.findViewById(R.id.mileageEditText);
+//        owner_EditText = (EditText)view.findViewById(R.id.ownerEditText);
+        expectedValue_EditText = (EditText)view.findViewById(R.id.expectedValueEditText);
+
+
         date1 = (Button)view.findViewById(R.id.selectDate1);
         date1FromPicker = (TextView)view.findViewById(R.id.date1FromPicker);
 
@@ -107,14 +141,69 @@ public class Fragment1 extends Fragment {
 
         myColorSpinner.setAdapter(adapter);
 
+        myColorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                colorSpinnerVlaue = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //----
+
+        ownerSpinner = (Spinner)view.findViewById(R.id.ownersSpinner);
+
+        ownerSpinnerData = new ArrayList<String>();
+        ownerSpinnerData.add("1");
+        ownerSpinnerData.add("2");
+        ownerSpinnerData.add("3");
+        ownerSpinnerData.add("4");
+        ownerSpinnerData.add("5");
+        ownerSpinnerData.add("6");
+        ownerSpinnerData.add("7");
+        ownerSpinnerData.add("8");
+        ownerSpinnerData.add("9");
+        ownerSpinnerData.add("10");
+
+        ArrayAdapter<String> OwnerAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ownerSpinnerData);
+
+        OwnerAdapter.setDropDownViewResource(R.layout.spinner_item);
+
+        ownerSpinner.setAdapter(OwnerAdapter);
+
+        ownerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ownerSpinnerValue = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //---
+
+        nextButton = (Button)view.findViewById(R.id.nextButton1);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveDataToSingelton();
+            }
+        });
+
         return view;
 
 
     }
 
-    public void setColors(ArrayList<String> list){
+    public void setColors(ArrayList<String> list,ArrayList<String> listIndex){
         this.colorSpinnerData = list;
-
+        this.colorSpinnerDataIndex = listIndex;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, colorSpinnerData);
 
         adapter.setDropDownViewResource(R.layout.spinner_item);
@@ -153,6 +242,85 @@ public class Fragment1 extends Fragment {
             // Do something with the date chosen by the user
             passedTextView.setText(passedTextView.getText().toString()+"  :  "+day+"/"+month+"/"+year);
         }
+    }
+
+    private void showToast(String str){
+        Toast.makeText(MyApplication.getAppContext(),str,Toast.LENGTH_LONG).show();
+    }
+
+    public void saveDataToSingelton(){
+
+
+//        regNo_EditText = (EditText)view.findViewById(R.id.regNoEditText);
+//        engine_EditText = (EditText)view.findViewById(R.id.engineEditText);
+//        model_EditText = (EditText)view.findViewById(R.id.modelEditText);
+//        variant_EditText = (EditText)view.findViewById(R.id.variantEditText);
+//        extra_EditText = (EditText)view.findViewById(R.id.extraEditText);
+//        make_EditText = (EditText)view.findViewById(R.id.makeEditText);
+//        mileage_EditText = (EditText)view.findViewById(R.id.mileageEditText);
+//        owner_EditText = (EditText)view.findViewById(R.id.ownerEditText);
+//        expectedValue_EditText = (EditText)view.findViewById(R.id.expectedValueEditText);
+
+        if(regNo_EditText.getText().toString().equalsIgnoreCase("")){
+            showToast("Please Enter Registration Number");
+            return;
+        }
+        if(engine_EditText.getText().toString().equalsIgnoreCase("")){
+            showToast("Please Enter Engine Information");
+            return;
+        }
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Reg. Date")){
+            showToast("Please Select Registration Date");
+            return;
+        }
+        if(expectedValue_EditText.getText().toString().equalsIgnoreCase("")){
+            showToast("Please Enter Expected Value");
+            return;
+        }
+
+//        regNo,engine,regDate,model,variant,motDate,extra,make,rflDate,mileage,owner,expectedValue,color
+
+        mySingelton.regNo = regNo_EditText.getText().toString();
+        mySingelton.engine = engine_EditText.getText().toString();
+        mySingelton.model = model_EditText.getText().toString();
+        mySingelton.variant = variant_EditText.getText().toString();
+        mySingelton.extra = extra_EditText.getText().toString();
+        mySingelton.make = make_EditText.getText().toString();
+        mySingelton.mileage = mileage_EditText.getText().toString();
+        mySingelton.owner = ownerSpinnerValue;
+        mySingelton.expectedValue = expectedValue_EditText.getText().toString();
+
+        mySingelton.color = colorSpinnerDataIndex.get(colorSpinnerData.indexOf(colorSpinnerVlaue));
+
+        String date1Selected = date1FromPicker.getText().toString();
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Reg. Date")){
+//            showToast("Please Select Registration Date");
+        }else{
+            date1Selected = date1Selected.substring(14);
+            mySingelton.regDate = date1Selected;
+        }
+
+
+        date1Selected = date2FromPicker.getText().toString();
+        if(date1Selected.length() >= 8){
+            mySingelton.motDate = date1Selected.substring(12);
+        }
+
+
+        date1Selected = date3FromPicker.getText().toString();
+        if(date1Selected.length()>=9){
+            mySingelton.rflDate = date1Selected.substring(13);
+        }
+
+
+
+
+        my_frg1Interface.data1Entered();
+
+    }
+
+    public interface frg1Interface{
+        public void data1Entered();
     }
 
 

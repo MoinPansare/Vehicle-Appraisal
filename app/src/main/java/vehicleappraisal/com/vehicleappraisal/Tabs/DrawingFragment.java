@@ -56,6 +56,8 @@ public class DrawingFragment extends Fragment {
 
     private List<Bitmap> data = new ArrayList<Bitmap>();
 
+    private Button submitButton;
+
     private SingeltonData mySingeltonData = SingeltonData.getMy_SingeltonData_Reference();
 
 
@@ -76,15 +78,7 @@ public class DrawingFragment extends Fragment {
     }
 
     public void setMyDrawView1(final Bitmap someBitmap){
-//        myDrawView1.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                myDrawView1.setImageBitmap(someBitmap);
 
-//            }
-//        });
-//        myDrawView1.invalidate();
-//        myDrawView1.invalidate();
         ImageView imageView = new ImageView(MyApplication.getAppContext());
         imageView.setImageBitmap(someBitmap);
         imageView.setLayoutParams(new LinearLayout.LayoutParams(
@@ -93,11 +87,6 @@ public class DrawingFragment extends Fragment {
 
         myDrawView1.setImageBitmap(((BitmapDrawable) imageView.getDrawable()).getBitmap());
 
-//        myDrawView1.setImageBitmap((Bitmap)new BitmapDrawable(getResources(),someBitmap));
-//        myDrawView1.setImageDrawable(new BitmapDrawable(getResources(),someBitmap));
-
-
-//        myDrawView1.setImageBitmap(new BitmapDrawable());
     }
     public void setMyDrawView2(Bitmap someBitmap){
         myDrawView2.setImageBitmap(someBitmap);
@@ -130,43 +119,6 @@ public class DrawingFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_drawing, container, false);
 
-//        Button saveImage1 = (Button)view.findViewById(R.id.saveImage1);
-//
-//        myDrawView1 = (MyDrawView)view.findViewById(R.id.myDrawer1);
-//
-//        saveImage1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadTask1(myDrawView1,"1");
-//            }
-//        });
-//
-//        Button saveImage2 = (Button)view.findViewById(R.id.saveImage2);
-//        myDrawView2 = (MyDrawView)view.findViewById(R.id.myDrawer2);
-//        saveImage2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadTask1(myDrawView2,"2");
-//            }
-//        });
-//
-//        Button saveImage3 = (Button)view.findViewById(R.id.saveImage3);
-//        myDrawView3 = (MyDrawView)view.findViewById(R.id.myDrawer3);
-//        saveImage2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadTask1(myDrawView3,"3");
-//            }
-//        });
-//
-//        Button saveImage4 = (Button)view.findViewById(R.id.saveImage4);
-//        myDrawView4 = (MyDrawView)view.findViewById(R.id.myDrawer4);
-//        saveImage4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loadTask1(myDrawView4,"4");
-//            }
-//        });
         my_Parent = (ViewGroup)view.findViewById(R.id.view_Layout);
 
         myDrawView1 = (ImageView)view.findViewById(R.id.img1);
@@ -234,6 +186,17 @@ public class DrawingFragment extends Fragment {
 
         CameraRecyclerView.setAdapter(myAdapter);
 
+        submitButton = (Button)view.findViewById(R.id.submitButton);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // send data to server
+
+                prepareToSendData();
+
+            }
+        });
+
         return view;
     }
 
@@ -241,73 +204,6 @@ public class DrawingFragment extends Fragment {
         my_ButtonForSource.SomeImageSelected(someImageView,indexString);
     }
 
-
-//    private void loadTask1(MyDrawView passed_MyDrawView, final String index){
-//        final MyDrawView someDrawer = passed_MyDrawView;
-//        Runnable task1 = new Runnable() {
-//            @Override
-//            public void run() {
-//                File folder = new File(Environment.getExternalStorageDirectory().toString());
-//                boolean success = false;
-//                if (!folder.exists())
-//                {
-//                    success = folder.mkdirs();
-//                }
-//
-//                System.out.println(success+"folder");
-//
-//                File file = new File(Environment.getExternalStorageDirectory().toString() + "/sample"+index+".png");
-//
-//                if ( !file.exists() )
-//                {
-//                    try {
-//                        success = file.createNewFile();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                System.out.println(success+"file");
-//
-//
-//
-//                FileOutputStream ostream = null;
-//                try
-//                {
-//                    ostream = new FileOutputStream(file);
-//
-//                    System.out.println(ostream);
-//                    View targetView = someDrawer;
-//
-//                    Bitmap well = someDrawer.getBitmap();
-//                    Bitmap save = Bitmap.createBitmap(320, 480, Bitmap.Config.ARGB_8888);
-//                    Paint paint = new Paint();
-//                    paint.setColor(Color.WHITE);
-//                    Canvas now = new Canvas(save);
-//                    now.drawRect(new Rect(0,0,320,480), paint);
-//                    now.drawBitmap(well, new Rect(0,0,well.getWidth(),well.getHeight()), new Rect(0,0,320,480), null);
-//
-//                    if(save == null) {
-//                        System.out.println("NULL bitmap save\n");
-//                    }
-//                    save.compress(Bitmap.CompressFormat.PNG, 100, ostream);
-//
-//                }catch (NullPointerException e)
-//                {
-//                    e.printStackTrace();
-//                    Toast.makeText(myContext, "Null error", Toast.LENGTH_SHORT).show();
-//                }
-//
-//                catch (FileNotFoundException e)
-//                {
-//                    e.printStackTrace();
-//                    Toast.makeText(myContext, "File error", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        };
-//
-//        task1.run();
-//    }
 
 
     public class CameraAdapter extends RecyclerView.Adapter<CameraCellViewHolder> {
@@ -369,10 +265,36 @@ public class DrawingFragment extends Fragment {
 
     }
 
+    private void showToast(String str){
+        Toast.makeText(MyApplication.getAppContext(),str,Toast.LENGTH_LONG).show();
+        my_ButtonForSource.navigateToPage1();
+    }
+
+
+    private void prepareToSendData(){
+        if(mySingeltonData.regNo.equalsIgnoreCase("")){
+            showToast("Please Enter Registration Number");
+        }
+        if(mySingeltonData.engine.equalsIgnoreCase("")){
+            showToast("Please Enter Engine Information");
+        }
+        if(mySingeltonData.regDate.equalsIgnoreCase("Reg. Date")){
+            showToast("Please Select Registration Date");
+            return;
+        }
+        if(mySingeltonData.expectedValue.equalsIgnoreCase("")){
+            showToast("Please Enter Expected Value");
+            return;
+        }
+        my_ButtonForSource.submitDataToServer();
+    }
+
     public interface ButtonForSource{
         public void cameraSelected();
         public void GallerySelected();
         public void SomeImageSelected(ImageView someImageView,String indexString);
+        public void submitDataToServer();
+        public void navigateToPage1();
     }
 
 

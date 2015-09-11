@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -18,19 +19,30 @@ import com.kyleduo.switchbutton.SwitchButton;
 import java.util.ArrayList;
 
 import vehicleappraisal.com.vehicleappraisal.R;
+import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment2 extends Fragment {
 
+    public frg2Interface my_frg2Interface;
+
+    private Button nextButton;
+
     private Spinner serviceHistorySpinner,ServicePackageSpinner,MantainSpinner;
-    private ArrayList<String> serviecHistorySpinnerData,ServicePackageSpinnerData,MantainSpinnerData;
+    private ArrayList<String> serviecHistorySpinnerData,ServicePackageSpinnerData,MantainSpinnerData,serviecHistorySpinnerDataIndex,MantainSpinnerDataIndex;
 
     private SwitchButton vanImportedSwitch,V5CSwitch,KeySetSwitch,WarrantySwitch,AccidentSwitch;
 
     private String spinnerValue1,spinnerValue2,spinnerValue3;
     private boolean swit1,swit2,swit3,swit4,swit5,swit6;
+
+    private SingeltonData mySingelton = SingeltonData.getMy_SingeltonData_Reference();
+
+    public void setMy_frg2Interface(frg2Interface my_frg2Interface) {
+        this.my_frg2Interface = my_frg2Interface;
+    }
 
     public Fragment2() {
         // Required empty public constructor
@@ -41,7 +53,8 @@ public class Fragment2 extends Fragment {
     }
 
 
-    public void setserviecHistorySpinnerData(ArrayList<String> list){
+    public void setserviecHistorySpinnerData(ArrayList<String> list,ArrayList<String> listIndex){
+        this.serviecHistorySpinnerDataIndex = listIndex;
         this.serviecHistorySpinnerData = list;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, serviecHistorySpinnerData);
 
@@ -50,7 +63,8 @@ public class Fragment2 extends Fragment {
         serviceHistorySpinner.setAdapter(adapter);
     }
 
-    public void setMantainSpinnerData(ArrayList<String> list){
+    public void setMantainSpinnerData(ArrayList<String> list,ArrayList<String> listIndex){
+        this.MantainSpinnerDataIndex = listIndex;
         this.MantainSpinnerData = list;
         ArrayAdapter<String> MantainSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, MantainSpinnerData);
 
@@ -60,12 +74,12 @@ public class Fragment2 extends Fragment {
     }
 
     public void setServicePackageSpinnerData(ArrayList<String> list){
-        this.ServicePackageSpinnerData = list;
-        ArrayAdapter<String> ServicePackageSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ServicePackageSpinnerData);
-
-        ServicePackageSpinner_adapter.setDropDownViewResource(R.layout.spinner_item);
-
-        ServicePackageSpinner.setAdapter(ServicePackageSpinner_adapter);
+//        this.ServicePackageSpinnerData = list;
+//        ArrayAdapter<String> ServicePackageSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ServicePackageSpinnerData);
+//
+//        ServicePackageSpinner_adapter.setDropDownViewResource(R.layout.spinner_item);
+//
+//        ServicePackageSpinner.setAdapter(ServicePackageSpinner_adapter);
     }
 
     @Override
@@ -109,12 +123,9 @@ public class Fragment2 extends Fragment {
         ServicePackageSpinner = (Spinner)view.findViewById(R.id.ServicePackage_spinner_info);
 
         ServicePackageSpinnerData = new ArrayList<String>();
-        ServicePackageSpinnerData.add("Red");
-        ServicePackageSpinnerData.add("Green");
-        ServicePackageSpinnerData.add("Blue");
-        ServicePackageSpinnerData.add("Black");
-        ServicePackageSpinnerData.add("Yellow");
-        ServicePackageSpinnerData.add("White");
+        ServicePackageSpinnerData.add("1");
+        ServicePackageSpinnerData.add("2");
+        ServicePackageSpinnerData.add("3");
 
         ArrayAdapter<String> ServicePackageSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ServicePackageSpinnerData);
 
@@ -203,8 +214,38 @@ public class Fragment2 extends Fragment {
                 swit5 = isChecked;
             }
         });
+
+        nextButton = (Button)view.findViewById(R.id.nextButton2);
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enterData();
+            }
+        });
+
+
+
         return view;
 
+    }
+
+    private void enterData(){
+        mySingelton.serviceHistory = serviecHistorySpinnerDataIndex.get(serviecHistorySpinnerData.indexOf(spinnerValue1));
+        mySingelton.servicePackage = spinnerValue2;
+        mySingelton.howDoYouMantain = MantainSpinnerDataIndex.get(MantainSpinnerData.indexOf(spinnerValue3));;
+
+        mySingelton.vanImported = swit1;
+        mySingelton.v5cCode = swit2;
+        mySingelton.keySets = swit3;
+        mySingelton.warrenty = swit4;
+        mySingelton.accidents = swit5;
+
+        my_frg2Interface.data2Entered();
+
+    }
+
+    public interface frg2Interface{
+        public void data2Entered();
     }
 
 

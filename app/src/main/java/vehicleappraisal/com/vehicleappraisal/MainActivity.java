@@ -23,6 +23,11 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import vehicleappraisal.com.vehicleappraisal.network.VolleySingelton;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
         userNameView = findViewById(R.id.userNameLinearLayout);
         passwordView = findViewById(R.id.passwordlinearLayout);

@@ -27,6 +27,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/regNoEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -45,6 +48,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/makeEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -63,6 +69,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/modelEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -81,6 +90,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/variantEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -99,6 +111,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/engineEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -132,6 +147,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:maxLines = "1"
+                    android:textSize="22sp"
+                    android:inputType="number"
                     android:id="@+id/mileageEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -150,6 +168,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/extraEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -161,7 +182,7 @@
             <TextView
                 android:textColor="@color/white"
                 android:id="@+id/date1FromPicker"
-                android:textSize="@dimen/textViewTextSize"
+                android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Reg. Date"
@@ -189,7 +210,7 @@
             <TextView
                 android:textColor="@color/white"
                 android:id="@+id/MotDueTextFeild"
-                android:textSize="@dimen/textViewTextSize"
+                android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="MOT Due"
@@ -217,7 +238,7 @@
             <TextView
                 android:textColor="@color/white"
                 android:id="@+id/RefDateTextFeild"
-                android:textSize="@dimen/textViewTextSize"
+                android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="RFL Date"
@@ -257,9 +278,10 @@
                     android:layout_weight="1"
                     android:text="Service History ?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
                 <Spinner
+                    android:background="@android:color/white"
                     android:id="@+id/ownersSpinner"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -284,6 +306,9 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:inputType="text"
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:id="@+id/ownerEditText"
                     android:textColorHint="@color/white"
                     android:textColor="@color/white"
@@ -303,6 +328,8 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:maxLines = "1"
+                    android:textSize="22sp"
                     android:inputType="number"
                     android:id="@+id/expectedValueEditText"
                     android:textColorHint="@color/white"
@@ -356,13 +383,14 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:text="Color"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp" />
 
                 <Spinner
+                    android:background="@android:color/white"
                     android:id="@+id/color_spinner_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

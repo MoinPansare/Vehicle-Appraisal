@@ -67,7 +67,7 @@
                 android:id="@+id/userNameEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email Id"
+                android:hint="User Name"
                 android:textColor="#333"
                 android:textColorHint="#666"
                 android:textSize="15sp" />

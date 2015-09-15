@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Fragment2">
 
@@ -40,9 +41,11 @@
                     android:layout_weight="1"
                     android:text="Service History?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <Spinner
+                    android:background="@android:color/white"
+                    android:spinnerMode="dropdown"
                     android:id="@+id/ServiceHistory_spinner_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -72,9 +75,10 @@
                     android:layout_weight="1"
                     android:text="Service Package?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <Spinner
+                    android:background="@android:color/white"
                     android:id="@+id/ServicePackage_spinner_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -104,9 +108,10 @@
                     android:layout_weight="1"
                     android:text="How Do You Mantain Your Vehicle?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="23sp" />
 
                 <Spinner
+                    android:background="@android:color/white"
                     android:id="@+id/Mantain_spinner_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -138,21 +143,42 @@
                     android:layout_weight="1"
                     android:text="Van Imported?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
-                <LinearLayout
-                    android:gravity="center"
+                <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <com.kyleduo.switchbutton.SwitchButton
-                        android:id="@+id/vanImportedSwitch"
-                        style="@style/StyleTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
 
-                </LinearLayout>
+                    <com.kyleduo.switchbutton.SwitchButton
+                        app:thumb_marginBottom="10dp"
+                        app:thumb_marginLeft="-9dp"
+                        app:thumb_marginRight="-9dp"
+                        app:thumb_marginTop="-5dp"
+                        app:animationVelocity="8"
+                        app:measureFactor="2.0"
+                        app:offDrawable="@drawable/ios_off"
+                        app:onColor="@color/primaryColor"
+                        app:thumbDrawable="@drawable/ios_thumb"
+                        style="@style/SwitchButtonStyle"
+                        android:id="@+id/vanImportedSwitch"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
 
             </TableRow>
 
@@ -174,21 +200,43 @@
                     android:layout_weight="1"
                     android:text="V5C doc?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
-                <LinearLayout
-                    android:gravity="center"
+                <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
                     <com.kyleduo.switchbutton.SwitchButton
                         android:id="@+id/V5CSwitch"
-                        style="@style/StyleTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        app:thumb_marginBottom="10dp"
+                        app:thumb_marginLeft="-9dp"
+                        app:thumb_marginRight="-9dp"
+                        app:thumb_marginTop="-5dp"
+                        app:animationVelocity="8"
+                        app:measureFactor="2.0"
+                        app:offDrawable="@drawable/ios_off"
+                        app:onColor="@color/primaryColor"
+                        app:thumbDrawable="@drawable/ios_thumb"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
-                </LinearLayout>
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
 
             </TableRow>
 
@@ -210,21 +258,43 @@
                     android:layout_weight="1"
                     android:text="2 Set Of Keys?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
-                <LinearLayout
-                    android:gravity="center"
+                <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
+                <RelativeLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
                     <com.kyleduo.switchbutton.SwitchButton
                         android:id="@+id/KeySetSwitch"
-                        style="@style/StyleTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        app:thumb_marginBottom="10dp"
+                        app:thumb_marginLeft="-9dp"
+                        app:thumb_marginRight="-9dp"
+                        app:thumb_marginTop="-5dp"
+                        app:animationVelocity="8"
+                        app:measureFactor="2.0"
+                        app:offDrawable="@drawable/ios_off"
+                        app:onColor="@color/primaryColor"
+                        app:thumbDrawable="@drawable/ios_thumb"
+                        style="@style/SwitchButtonStyle"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
 
-                </LinearLayout>
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
 
             </TableRow>
 
@@ -246,22 +316,45 @@
                     android:layout_weight="1"
                     android:text="Do You Have Warranty On This Van?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
-                <LinearLayout
-                    android:gravity="center"
+                <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <com.kyleduo.switchbutton.SwitchButton
-                        android:gravity="center"
-                        android:id="@+id/WarrantySwitch"
-                        style="@style/StyleTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <RelativeLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
 
-                </LinearLayout>
+                        <com.kyleduo.switchbutton.SwitchButton
+                            android:gravity="center"
+                            android:id="@+id/WarrantySwitch"
+                            app:thumb_marginBottom="10dp"
+                            app:thumb_marginLeft="-9dp"
+                            app:thumb_marginRight="-9dp"
+                            app:thumb_marginTop="-5dp"
+                            app:animationVelocity="8"
+                            app:measureFactor="2.0"
+                            app:offDrawable="@drawable/ios_off"
+                            app:onColor="@color/primaryColor"
+                            app:thumbDrawable="@drawable/ios_thumb"
+                            style="@style/SwitchButtonStyle"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true" />
+
+
+                    </RelativeLayout>
+
+
+
+                </RelativeLayout>
 
             </TableRow>
 
@@ -283,21 +376,45 @@
                     android:layout_weight="1"
                     android:text="Has Your Vehicle Been Involved In Any Accidents?:"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp" />
+                    android:textSize="22sp" />
 
-                <LinearLayout
-                    android:gravity="center"
+                <RelativeLayout
+                    android:gravity="center_horizontal"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
 
-                    <com.kyleduo.switchbutton.SwitchButton
-                        android:id="@+id/AccidentSwitch"
-                        style="@style/StyleTitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <RelativeLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true">
 
-                </LinearLayout>
+                        <com.kyleduo.switchbutton.SwitchButton
+                            android:id="@+id/AccidentSwitch"
+                            app:thumb_marginBottom="10dp"
+                            app:thumb_marginLeft="-9dp"
+                            app:thumb_marginRight="-9dp"
+                            app:thumb_marginTop="-5dp"
+                            app:animationVelocity="8"
+                            app:measureFactor="2.0"
+                            app:offDrawable="@drawable/ios_off"
+                            app:onColor="@color/primaryColor"
+                            app:thumbDrawable="@drawable/ios_thumb"
+                            style="@style/SwitchButtonStyle"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center"/>
+
+                    </RelativeLayout>
+
+
+
+
+                </RelativeLayout>
 
             </TableRow>
 
@@ -308,7 +425,7 @@
                 android:layout_margin="5dp"
                 android:background="@color/primaryColor"
                 android:textColor="@android:color/white"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:text="NEXT"/>
 
         </LinearLayout>

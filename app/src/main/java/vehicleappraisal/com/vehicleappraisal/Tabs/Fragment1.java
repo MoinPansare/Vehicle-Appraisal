@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,9 @@ public class Fragment1 extends Fragment {
 //        owner_EditText = (EditText)view.findViewById(R.id.ownerEditText);
         expectedValue_EditText = (EditText)view.findViewById(R.id.expectedValueEditText);
 
+        mileage_EditText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+        expectedValue_EditText.setInputType((InputType.TYPE_CLASS_NUMBER + InputType.TYPE_NUMBER_FLAG_DECIMAL));
+
 
         date1 = (Button)view.findViewById(R.id.selectDate1);
         date1FromPicker = (TextView)view.findViewById(R.id.date1FromPicker);
@@ -137,7 +141,7 @@ public class Fragment1 extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, colorSpinnerData);
 
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         myColorSpinner.setAdapter(adapter);
 
@@ -171,7 +175,7 @@ public class Fragment1 extends Fragment {
 
         ArrayAdapter<String> OwnerAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ownerSpinnerData);
 
-        OwnerAdapter.setDropDownViewResource(R.layout.spinner_item);
+        OwnerAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         ownerSpinner.setAdapter(OwnerAdapter);
 
@@ -206,7 +210,7 @@ public class Fragment1 extends Fragment {
         this.colorSpinnerDataIndex = listIndex;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, colorSpinnerData);
 
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         myColorSpinner.setAdapter(adapter);
 
@@ -237,17 +241,16 @@ public class Fragment1 extends Fragment {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month+1, day);
+            return new DatePickerDialog(getActivity(), this, year, month, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             switch (index){
-                case 1 : passedTextView.setText("Reg. Date  :  "+day+"/"+month+"/"+year);break;
-                case 2 : passedTextView.setText("MOT Due  :  "+day+"/"+month+"/"+year);break;
-                case 3 : passedTextView.setText("RFL Date  :  "+day+"/"+month+"/"+year);break;
+                case 1 : passedTextView.setText("Reg. Date  :  "+day+"/"+(month+1)+"/"+year);break;
+                case 2 : passedTextView.setText("MOT Due  :  "+day+"/"+(month+1)+"/"+year);break;
+                case 3 : passedTextView.setText("RFL Date  :  "+day+"/"+(month+1)+"/"+year);break;
             }
-//            passedTextView.setText(passedTextView.getText().toString()+"  :  "+day+"/"+month+"/"+year);
         }
     }
 

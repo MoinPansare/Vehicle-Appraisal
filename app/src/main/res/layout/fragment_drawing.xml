@@ -23,21 +23,27 @@
                 android:id="@+id/img1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/van1" />
+                android:src="@drawable/van1"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="5dp" />
 
             <ImageView
                 android:id="@+id/img2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/van2" />
+                android:src="@drawable/van2"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp" />
 
         </TableRow>
 
@@ -50,22 +56,28 @@
                 android:id="@+id/img3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/van3" />
+                android:src="@drawable/van3"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp" />
             <!--android:transitionName="imageTransition"-->
 
             <ImageView
                 android:id="@+id/img4"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/van4" />
+                android:src="@drawable/van4"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp" />
 
         </TableRow>
 

@@ -27,6 +27,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import vehicleappraisal.com.vehicleappraisal.network.VolleySingelton;
 
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private View userNameView, passwordView;
     private EditText userName, password;
     private Button loginButton;
+    private int backPressed = 0;
+    private Runnable task,task1,task2;
+    private static final ScheduledExecutorService worker =
+            Executors.newSingleThreadScheduledExecutor();
 
     private final String loginUrl = "http://testwip.northside.co.uk/Broker/Broker.svc/Authenticate";
 
@@ -43,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
         userNameView = findViewById(R.id.userNameLinearLayout);
         passwordView = findViewById(R.id.passwordlinearLayout);
@@ -145,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
     public void NavigateToHomePage(JSONObject response) {
 
         try{
-            if(response.get("ErrorCode") != null ){
+
+            String code = response.getString("ErrorCode");
+            if( !code.equalsIgnoreCase("2") &&  response.get("ErrorCode") != null){
                 String accessToken = response.getString("TokenValue");
 //                String userNameResponse = response.getString("UserName");
 
@@ -162,8 +168,25 @@ public class MainActivity extends AppCompatActivity {
 //                editor.putString(getString(R.string.accessTokenSharedPreference), accessToken);
 //                editor.apply();
 
-                userName.setText("");
-                password.setText("");
+//                task1 = new Runnable() {
+//                    public void run() {
+//                        userName.setText("");
+//
+//                    }
+//                };
+//                worker.schedule(task1, 2, TimeUnit.SECONDS);
+//
+//                task2 = new Runnable() {
+//                    public void run() {
+//                        password.setText("");
+//
+//                    }
+//                };
+//                worker.schedule(task2, 2, TimeUnit.SECONDS);
+//
+//                userName.requestFocus();
+
+
 
                 Intent homeIntent = new Intent(this,Home.class);
                 homeIntent.putExtra(getString(R.string.userName),"");
@@ -196,5 +219,35 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Something went wrong \n Please try again after some time", Toast.LENGTH_LONG).show();
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(backPressed == 0){
+                backPressed = 1;
+                Toast.makeText(this,"Press Back Again To Exit",Toast.LENGTH_SHORT).show();
+                task = new Runnable() {
+                    public void run() {
+                        backPressed = 0;
+                    }
+                };
+                worker.schedule(task, 2, TimeUnit.SECONDS);
+                return false;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        password.setText("");
+        userName.setText("");
+        userName.requestFocus();
     }
 }

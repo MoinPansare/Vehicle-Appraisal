@@ -233,8 +233,8 @@ public class DrawingFragment extends Fragment {
             try{
                 Bitmap thisBitmap = data.get(i);
                 Drawable dr = new BitmapDrawable(getResources(),thisBitmap);
-                cameraCellViewHolder.mainImage.setBackgroundDrawable(dr);
-//                cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
+//                cameraCellViewHolder.mainImage.setBackgroundDrawable(dr);
+                cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
             }catch (Exception e){
 //                cameraCellViewHolder.mainImage.setImageResource(R.drawable.bg123);
             }

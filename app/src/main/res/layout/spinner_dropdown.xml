@@ -13,10 +13,5 @@
     android:text="Dummy"
     android:textColor="@android:color/black"
     android:textSize="22sp"
-    style="?android:attr/spinnerItemStyle"
-    android:drawablePadding="5dp"
-    android:drawableRight="@drawable/ic_arrow_down"
-    />
+    style="?android:attr/spinnerItemStyle" />
 
-    <!--android:drawablePadding="5dp"-->
-    <!--android:drawableRight="@drawable/ic_arrow_down"-->

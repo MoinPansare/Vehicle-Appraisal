@@ -58,7 +58,7 @@ public class Fragment2 extends Fragment {
         this.serviecHistorySpinnerData = list;
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, serviecHistorySpinnerData);
 
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         serviceHistorySpinner.setAdapter(adapter);
     }
@@ -68,7 +68,7 @@ public class Fragment2 extends Fragment {
         this.MantainSpinnerData = list;
         ArrayAdapter<String> MantainSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, MantainSpinnerData);
 
-        MantainSpinner_adapter.setDropDownViewResource(R.layout.spinner_item);
+        MantainSpinner_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         MantainSpinner.setAdapter(MantainSpinner_adapter);
     }
@@ -104,7 +104,7 @@ public class Fragment2 extends Fragment {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, serviecHistorySpinnerData);
 
-        adapter.setDropDownViewResource(R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         serviceHistorySpinner.setAdapter(adapter);
 
@@ -129,7 +129,7 @@ public class Fragment2 extends Fragment {
 
         ArrayAdapter<String> ServicePackageSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, ServicePackageSpinnerData);
 
-        ServicePackageSpinner_adapter.setDropDownViewResource(R.layout.spinner_item);
+        ServicePackageSpinner_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         ServicePackageSpinner.setAdapter(ServicePackageSpinner_adapter);
 
@@ -158,7 +158,7 @@ public class Fragment2 extends Fragment {
 
         ArrayAdapter<String> MantainSpinner_adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),R.layout.spinner_item, MantainSpinnerData);
 
-        MantainSpinner_adapter.setDropDownViewResource(R.layout.spinner_item);
+        MantainSpinner_adapter.setDropDownViewResource(R.layout.spinner_dropdown);
 
         MantainSpinner.setAdapter(MantainSpinner_adapter);
 

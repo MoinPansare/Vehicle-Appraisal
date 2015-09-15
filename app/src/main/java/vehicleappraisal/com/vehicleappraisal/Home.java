@@ -102,7 +102,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 //        Toast.makeText(this,getIntent().getStringExtra("UserName").toString(),Toast.LENGTH_LONG).show();
         userName = this.getIntent().getStringExtra(getString(R.string.accessToken));
         Token = this.getIntent().getStringExtra(getString(R.string.accessToken));
-        Toast.makeText(this,userName,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this,userName,Toast.LENGTH_SHORT).show();
 
         JSONObject postObj = new JSONObject();
         try {
@@ -209,7 +209,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         myTabLayout.setDistributeEvenly(false);
-        myTabLayout.setTabWeights(new int[]{2,3,2});
+        myTabLayout.setTabWeights(new int[]{3,3,2});
         myTabLayout.setViewPager(mPager);
     }
 
@@ -258,16 +258,17 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         Intent intent = new Intent(Home.this, Sketch.class);
         intent.putExtra("IndexOfImage", indexString);
 
-//        if(android.os.Build.VERSION.SDK_INT >= 21){
+        if(android.os.Build.VERSION.SDK_INT >= 21){
             ActivityOptions options = ActivityOptions
                     .makeSceneTransitionAnimation(this, someImageView, "imageTransition");
 //        startActivity(intent, options.toBundle());
 //            startActivity(intent, options.toBundle());
             startActivityForResult(intent,99,options.toBundle());
-//        }
-//        else{
+        }
+        else{
 //            startActivity(intent);
-//        }
+            startActivityForResult(intent,99);
+        }
 
     }
 

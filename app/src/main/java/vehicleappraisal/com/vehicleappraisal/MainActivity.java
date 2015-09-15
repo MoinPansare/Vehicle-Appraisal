@@ -73,24 +73,30 @@ public class MainActivity extends AppCompatActivity {
         final String usNAME = userName.getText().toString();
         final String paWord = password.getText().toString();
 
-//        if (usNAME.length() == 0) {
-//            Toast.makeText(this, "Please Enter User Name", Toast.LENGTH_SHORT).show();
-//            userNameView.setBackgroundColor(Color.RED);
-//        }
-//        if (paWord.length() == 0) {
-//            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
-//            passwordView.setBackgroundColor(Color.RED);
-//        }
-        userNameView.setBackgroundColor(Color.TRANSPARENT);
-        passwordView.setBackgroundColor(Color.TRANSPARENT);
+        if (usNAME.length() == 0) {
+            Toast.makeText(this, "Please Enter User Name", Toast.LENGTH_SHORT).show();
+            userNameView.setBackgroundColor(Color.RED);
+            return;
+        }
+        else{
+            userNameView.setBackgroundColor(Color.TRANSPARENT);
+        }
+        if (paWord.length() == 0) {
+            Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
+            passwordView.setBackgroundColor(Color.RED);
+            return;
+        }
+        else{
+            passwordView.setBackgroundColor(Color.TRANSPARENT);
+        }
 
 //        Map<String, String> params = new HashMap<String, String>();
 //        params.put("username", usNAME);
 //        params.put("password", paWord);
 
         JSONObject params = new JSONObject();
-        params.put("username", "rg-115");
-        params.put("password", "Ny88le15");
+        params.put("username", usNAME);
+        params.put("password", paWord);
 
         JsonObjectRequest loginRequest = new JsonObjectRequest(Request.Method.POST, loginUrl, params,
 

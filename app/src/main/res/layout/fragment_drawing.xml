@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg123" />
+                android:src="@drawable/van1" />
 
             <ImageView
                 android:id="@+id/img2"
@@ -37,7 +37,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg123" />
+                android:src="@drawable/van2" />
 
         </TableRow>
 
@@ -54,7 +54,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg123" />
+                android:src="@drawable/van3" />
             <!--android:transitionName="imageTransition"-->
 
             <ImageView
@@ -65,7 +65,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_dark"
                 android:scaleType="fitXY"
-                android:src="@drawable/bg123" />
+                android:src="@drawable/van4" />
 
         </TableRow>
 

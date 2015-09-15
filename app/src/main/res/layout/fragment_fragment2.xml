@@ -38,7 +38,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Service History ?:"
+                    android:text="Service History?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -70,7 +70,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Service Package ?:"
+                    android:text="Service Package?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -102,7 +102,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="How Do You Mantain Your Vehicle ?:"
+                    android:text="How Do You Mantain Your Vehicle?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -136,7 +136,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Van Imported ?:"
+                    android:text="Van Imported?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -172,7 +172,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="V5C doc ?:"
+                    android:text="V5C doc?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -208,7 +208,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="2 Set Of Keys ?:"
+                    android:text="2 Set Of Keys?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -244,7 +244,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Do You Have Warranty On This Van ?:"
+                    android:text="Do You Have Warranty On This Van?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -281,7 +281,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Has Your Vehicle Been Involved In Any Accidents ?:"
+                    android:text="Has Your Vehicle Been Involved In Any Accidents?:"
                     android:textColor="@android:color/white"
                     android:textSize="20sp" />
 
@@ -303,12 +303,12 @@
 
             <Button
                 android:id="@+id/nextButton2"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@color/primaryColor"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
                 android:text="NEXT"/>
 
         </LinearLayout>

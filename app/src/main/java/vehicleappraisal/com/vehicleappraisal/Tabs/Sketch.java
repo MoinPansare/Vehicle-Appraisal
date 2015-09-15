@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -43,7 +44,7 @@ public class Sketch extends AppCompatActivity {
     private SingeltonData my_SingeltonData = SingeltonData.getMy_SingeltonData_Reference();
 
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+//    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,22 +72,34 @@ public class Sketch extends AppCompatActivity {
         switch (indexOfImage) {
             case "1":
                 if (my_SingeltonData.getVector1() != null) {
-                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector1()));
+                    Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector1());
+                    sketchImage.setBackgroundDrawable(dr);
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector1()));
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector1()));
                 }
                 break;
             case "2":
                 if (my_SingeltonData.getVector2() != null) {
-                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector2()));
+                    Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector2());
+                    sketchImage.setBackgroundDrawable(dr);
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector2()));
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector2()));
                 }
                 break;
             case "3":
                 if (my_SingeltonData.getVector3() != null) {
-                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector3()));
+                    Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector3());
+                    sketchImage.setBackgroundDrawable(dr);
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector3()));
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector3()));
                 }
                 break;
             case "4":
                 if (my_SingeltonData.getVector4() != null) {
-                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector4()));
+                    Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector4());
+                    sketchImage.setBackgroundDrawable(dr);
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector4()));
+//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector4()));
                 }
                 break;
 //            default: sketchImage.getBackground(new BitmapDrawable(getResources(),my_SingeltonData.getVector1()));break;

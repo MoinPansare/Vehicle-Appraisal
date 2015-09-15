@@ -98,7 +98,7 @@ public class Fragment1 extends Fragment {
         date1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment(date1FromPicker);
+                DialogFragment newFragment = new DatePickerFragment(date1FromPicker,1);
                 newFragment.show(my_FragmentManager, "datePicker");
             }
         });
@@ -109,7 +109,7 @@ public class Fragment1 extends Fragment {
         date2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment(date2FromPicker);
+                DialogFragment newFragment = new DatePickerFragment(date2FromPicker,2);
                 newFragment.show(my_FragmentManager, "datePicker");
             }
         });
@@ -120,7 +120,7 @@ public class Fragment1 extends Fragment {
         date3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DatePickerFragment(date3FromPicker);
+                DialogFragment newFragment = new DatePickerFragment(date3FromPicker,3);
                 newFragment.show(my_FragmentManager, "datePicker");
             }
         });
@@ -216,10 +216,12 @@ public class Fragment1 extends Fragment {
             implements DatePickerDialog.OnDateSetListener {
 
         private TextView passedTextView;
+        private int index;
 
         @SuppressLint("ValidFragment")
-        public DatePickerFragment(TextView someTextView){
+        public DatePickerFragment(TextView someTextView,int someIndex){
             this.passedTextView = someTextView;
+            this.index = someIndex;
         }
 
         public DatePickerFragment(){
@@ -235,12 +237,17 @@ public class Fragment1 extends Fragment {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(), this, year, month+1, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
-            passedTextView.setText(passedTextView.getText().toString()+"  :  "+day+"/"+month+"/"+year);
+            switch (index){
+                case 1 : passedTextView.setText("Reg. Date  :  "+day+"/"+month+"/"+year);break;
+                case 2 : passedTextView.setText("MOT Due  :  "+day+"/"+month+"/"+year);break;
+                case 3 : passedTextView.setText("RFL Date  :  "+day+"/"+month+"/"+year);break;
+            }
+//            passedTextView.setText(passedTextView.getText().toString()+"  :  "+day+"/"+month+"/"+year);
         }
     }
 

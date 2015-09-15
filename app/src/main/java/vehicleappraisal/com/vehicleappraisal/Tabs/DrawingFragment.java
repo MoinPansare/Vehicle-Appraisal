@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
@@ -231,9 +232,11 @@ public class DrawingFragment extends Fragment {
         public void onBindViewHolder(CameraCellViewHolder cameraCellViewHolder, int i) {
             try{
                 Bitmap thisBitmap = data.get(i);
-                cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
+                Drawable dr = new BitmapDrawable(getResources(),thisBitmap);
+                cameraCellViewHolder.mainImage.setBackgroundDrawable(dr);
+//                cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
             }catch (Exception e){
-                cameraCellViewHolder.mainImage.setImageResource(R.drawable.bg123);
+//                cameraCellViewHolder.mainImage.setImageResource(R.drawable.bg123);
             }
         }
 

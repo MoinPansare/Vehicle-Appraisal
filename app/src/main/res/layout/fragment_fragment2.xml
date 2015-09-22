@@ -39,9 +39,18 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Service History?:"
+                    android:text="Service History?"
                     android:textColor="@android:color/white"
                     android:textSize="23sp" />
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:background="@android:color/white"
@@ -73,9 +82,18 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Service Package?:"
+                    android:text="Service Package?"
                     android:textColor="@android:color/white"
                     android:textSize="23sp" />
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:background="@android:color/white"
@@ -106,9 +124,18 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="How Do You Mantain Your Vehicle?:"
+                    android:text="How Do You Mantain Your Vehicle?"
                     android:textColor="@android:color/white"
                     android:textSize="23sp" />
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:background="@android:color/white"
@@ -141,20 +168,20 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Van Imported?:"
+                    android:text="Van Imported?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
                 <RelativeLayout
                     android:gravity="center_horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="42dp"
                     android:layout_weight="1">
 
                 <RelativeLayout
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="38dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
@@ -168,6 +195,7 @@
                         app:measureFactor="2.0"
                         app:offDrawable="@drawable/ios_off"
                         app:onColor="@color/primaryColor"
+                        app:offColor="@android:color/black"
                         app:thumbDrawable="@drawable/ios_thumb"
                         style="@style/SwitchButtonStyle"
                         android:id="@+id/vanImportedSwitch"
@@ -198,20 +226,20 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="V5C doc?:"
+                    android:text="V5C doc?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
                 <RelativeLayout
                     android:gravity="center_horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="42dp"
                     android:layout_weight="1">
 
                 <RelativeLayout
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="38dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
@@ -256,20 +284,20 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="2 Set Of Keys?:"
+                    android:text="2 Set Of Keys?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
                 <RelativeLayout
                     android:gravity="center_horizontal"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="42dp"
                     android:layout_weight="1">
 
                 <RelativeLayout
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="38dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
@@ -314,7 +342,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Do You Have Warranty On This Van?:"
+                    android:text="Do You Have Warranty On This Van?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
@@ -325,14 +353,15 @@
                     android:layout_weight="1">
 
                     <RelativeLayout
-                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="38dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true">
 
                         <com.kyleduo.switchbutton.SwitchButton
+
                             android:gravity="center"
                             android:id="@+id/WarrantySwitch"
                             app:thumb_marginBottom="10dp"
@@ -374,7 +403,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Has Your Vehicle Been Involved In Any Accidents?:"
+                    android:text="Has Your Vehicle Been Involved In Any Accidents?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
 
@@ -387,7 +416,7 @@
                     <RelativeLayout
                         android:gravity="center_vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="36dp"
+                        android:layout_height="38dp"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true">
@@ -426,7 +455,7 @@
                 android:background="@color/primaryColor"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
-                android:text="NEXT"/>
+                android:text="SAVE"/>
 
         </LinearLayout>
     </ScrollView>

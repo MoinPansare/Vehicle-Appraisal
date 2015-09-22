@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     tools:context="vehicleappraisal.com.vehicleappraisal.Tabs.Sketch">
 
-    <Button
-        android:layout_weight="1"
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="SAVE"/>
-
     <vehicleappraisal.com.vehicleappraisal.Tabs.MyDrawView
         android:transitionName="imageTransition"
         android:layout_weight="7"
@@ -18,11 +11,55 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
-    <Button
-        android:layout_weight="1"
-        android:id="@+id/cancelButton"
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="CANCEL"/>
+        android:layout_weight="1">
+
+        <Button
+            android:textSize="18sp"
+            android:background="@color/primaryColor"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="CANCEL"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="2.5dp"
+            android:layout_marginBottom="2.5dp" />
+
+        <Button
+            android:textSize="18sp"
+            android:background="@color/primaryColor"
+            android:textColor="@android:color/white"
+            android:layout_weight="1"
+            android:id="@+id/clearButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="CLEAR"
+            android:layout_marginLeft="2.5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="2.5dp" />
+
+    </TableRow>
+
+
+
+    <Button
+        android:textSize="18sp"
+        android:background="@color/primaryColor"
+        android:textColor="@android:color/white"
+        android:layout_weight="1"
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="SAVE"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp" />
 
 </LinearLayout>

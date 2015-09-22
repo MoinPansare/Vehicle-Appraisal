@@ -50,13 +50,6 @@ public class DrawingFragment extends Fragment {
 
     private Context myContext;
 
-    private Button CameraButton,GalleryButton;
-
-    private RecyclerView CameraRecyclerView;
-    private CameraAdapter myAdapter;
-
-    private List<Bitmap> data = new ArrayList<Bitmap>();
-
     private Button submitButton;
 
     private SingeltonData mySingeltonData = SingeltonData.getMy_SingeltonData_Reference();
@@ -64,14 +57,6 @@ public class DrawingFragment extends Fragment {
 
 
     public DrawingFragment() {
-
-
-        // Required empty public constructor
-    }
-
-    public void AddData(Bitmap someBitmap){
-        data.add(someBitmap);
-        myAdapter.notifyDataSetChanged();
     }
 
     public void setMy_ButtonForSource(ButtonForSource my_ButtonForSource) {
@@ -91,17 +76,14 @@ public class DrawingFragment extends Fragment {
     }
     public void setMyDrawView2(Bitmap someBitmap){
         myDrawView2.setImageBitmap(someBitmap);
-        myAdapter.notifyDataSetChanged();
         my_Parent.invalidate();
     }
     public void setMyDrawView3(Bitmap someBitmap){
         myDrawView3.setImageBitmap(someBitmap);
-        myAdapter.notifyDataSetChanged();
         my_Parent.invalidate();
     }
     public void setMyDrawView4(Bitmap someBitmap){
         myDrawView4.setImageBitmap(someBitmap);
-        myAdapter.notifyDataSetChanged();
         my_Parent.invalidate();
     }
 
@@ -160,41 +142,13 @@ public class DrawingFragment extends Fragment {
         });
 
 
-        CameraButton = (Button)view.findViewById(R.id.cameraButton);
-
-        CameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                my_ButtonForSource.cameraSelected();
-            }
-        });
-
-        GalleryButton = (Button)view.findViewById(R.id.galleryButton);
-
-        GalleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                my_ButtonForSource.GallerySelected();
-            }
-        });
-
-        CameraRecyclerView = (RecyclerView)view.findViewById(R.id.CameraRecyclerView);
-
-//
-        myAdapter = new CameraAdapter(MyApplication.getAppContext(),data);
-        CameraRecyclerView.setLayoutManager(new GridLayoutManager(MyApplication.getAppContext(), 2));
-//        myAdapter.setsomeListData(this);
-
-        CameraRecyclerView.setAdapter(myAdapter);
 
         submitButton = (Button)view.findViewById(R.id.submitButton);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // send data to server
-
-                prepareToSendData();
-
+                my_ButtonForSource.navigateTpLastPage();
             }
         });
 
@@ -205,99 +159,9 @@ public class DrawingFragment extends Fragment {
         my_ButtonForSource.SomeImageSelected(someImageView,indexString);
     }
 
-
-
-    public class CameraAdapter extends RecyclerView.Adapter<CameraCellViewHolder> {
-
-        private List<Bitmap> data = Collections.emptyList();
-        private Context myContext;
-        private LayoutInflater inflator;
-
-
-        public CameraAdapter(Context context,List<Bitmap>someData) {
-
-            myContext = context;
-            inflator = LayoutInflater.from(myContext);
-            this.data = someData;
-        }
-
-        @Override
-        public CameraCellViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-            View view = inflator.inflate(R.layout.camera_cell, viewGroup, false);
-            CameraCellViewHolder holder = new CameraCellViewHolder(view);
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(CameraCellViewHolder cameraCellViewHolder, int i) {
-            try{
-                Bitmap thisBitmap = data.get(i);
-                Drawable dr = new BitmapDrawable(getResources(),thisBitmap);
-//                cameraCellViewHolder.mainImage.setBackgroundDrawable(dr);
-                cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
-            }catch (Exception e){
-//                cameraCellViewHolder.mainImage.setImageResource(R.drawable.bg123);
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            if(data.size() == 0){
-                return 1;
-            }
-            return data.size();
-//            return ;
-        }
-    }
-
-    public class CameraCellViewHolder extends RecyclerView.ViewHolder {
-
-
-        ImageView mainImage;
-        ImageView deleteButton;
-
-
-        public CameraCellViewHolder(View itemView) {
-            super(itemView);
-
-            mainImage = (ImageView)itemView.findViewById(R.id.camera_Cell_ImageView);
-            deleteButton = (ImageView)itemView.findViewById(R.id.deleteImage);
-
-        }
-
-
-    }
-
-    private void showToast(String str){
-        Toast.makeText(MyApplication.getAppContext(),str,Toast.LENGTH_LONG).show();
-        my_ButtonForSource.navigateToPage1();
-    }
-
-
-    private void prepareToSendData(){
-        if(mySingeltonData.regNo.equalsIgnoreCase("")){
-            showToast("Please Enter Registration Number");
-        }
-        if(mySingeltonData.engine.equalsIgnoreCase("")){
-            showToast("Please Enter Engine Information");
-        }
-        if(mySingeltonData.regDate.equalsIgnoreCase("Reg. Date")){
-            showToast("Please Select Registration Date");
-            return;
-        }
-        if(mySingeltonData.expectedValue.equalsIgnoreCase("")){
-            showToast("Please Enter Expected Value");
-            return;
-        }
-        my_ButtonForSource.submitDataToServer();
-    }
-
     public interface ButtonForSource{
-        public void cameraSelected();
-        public void GallerySelected();
         public void SomeImageSelected(ImageView someImageView,String indexString);
-        public void submitDataToServer();
-        public void navigateToPage1();
+        public void navigateTpLastPage();
     }
 
 

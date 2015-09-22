@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.victor.loading.newton.NewtonCradleLoading;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,10 @@ import vehicleappraisal.com.vehicleappraisal.network.VolleySingelton;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NewtonCradleLoading newtonCradleLoading;
+    private View loadingView;
+    private TextView loadingTextView;
+
     private View userNameView, passwordView;
     private EditText userName, password;
     private Button loginButton;
@@ -50,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        newtonCradleLoading = (NewtonCradleLoading)findViewById(R.id.newton_cradle_loading1);
+        loadingView = (View)findViewById(R.id.loadingView1);
+        loadingTextView = (TextView)findViewById(R.id.loadingTextView1);
 
         userNameView = findViewById(R.id.userNameLinearLayout);
         passwordView = findViewById(R.id.passwordlinearLayout);
@@ -107,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        stopLoading();
                         NavigateToHomePage(response);
                     }
                 },
@@ -114,12 +125,14 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        stopLoading();
                         showError(1,"");
                     }
                 }
 
         );
 
+        startLoading();
         VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(loginRequest);
 
     }
@@ -240,6 +253,20 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
 
+    }
+
+    public void startLoading(){
+        newtonCradleLoading.setAlpha((float) 1.0);
+        newtonCradleLoading.start();
+        loadingView.setAlpha((float) 0.7);
+        loadingTextView.setAlpha((float) 1.0);
+    }
+
+    public void stopLoading(){
+        newtonCradleLoading.setAlpha((float) 0.0);
+        newtonCradleLoading.stop();
+        loadingView.setAlpha((float) 0.0);
+        loadingTextView.setAlpha((float) 0.0);
     }
 
 

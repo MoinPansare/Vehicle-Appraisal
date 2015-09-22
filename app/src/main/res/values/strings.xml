@@ -11,11 +11,15 @@
         <item>Vehicle Detail</item>
         <item>Service History</item>
         <item>Damage</item>
+        <item>Photos</item>
     </string-array>
     
     
     <string name="userName">vehicleappraisal.com.vehicleappraisal.userName</string>
     <string name="accessToken">vehicleappraisal.com.vehicleappraisal.Token</string>
     <string name="title_activity_sketch">Sketch</string>
+
+    <string name="finalMessage">You Have Successfully Submitted Your Vehicle Information</string>
+    <string name="title_activity_newton_cradle">NewtonCradleActivity</string>
     
 </resources>

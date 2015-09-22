@@ -18,6 +18,7 @@
             android:layout_height="wrap_content">
 
             <vehicleappraisal.com.vehicleappraisal.external.FloatLabeledEditText
+                android:id="@+id/regNoBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -27,7 +28,8 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
-                    android:inputType="text"
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
+                    android:inputType="textCapCharacters"
                     android:maxLines = "1"
                     android:textSize="22sp"
                     android:id="@+id/regNoEditText"
@@ -48,6 +50,8 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="text"
                     android:maxLines = "1"
                     android:textSize="22sp"
@@ -69,6 +73,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="text"
                     android:maxLines = "1"
                     android:textSize="22sp"
@@ -90,6 +95,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="text"
                     android:maxLines = "1"
                     android:textSize="22sp"
@@ -102,6 +108,7 @@
             </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
             <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:id="@+id/engineBack"
                 float:fletTextAppearance="@style/floatlabelededittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -111,6 +118,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="text"
                     android:maxLines = "1"
                     android:textSize="22sp"
@@ -147,6 +155,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:maxLines = "1"
                     android:textSize="22sp"
                     android:inputType="number"
@@ -168,6 +177,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="text"
                     android:maxLines = "1"
                     android:textSize="22sp"
@@ -185,7 +195,7 @@
                 android:textSize="22sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Reg. Date"
+                android:text="Registration Date"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
@@ -276,9 +286,19 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Service History ?:"
+                    android:text="Previous Owners?"
                     android:textColor="@android:color/white"
                     android:textSize="22sp" />
+
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <Spinner
                     android:background="@android:color/white"
@@ -296,8 +316,31 @@
             </TableRow>
 
 
+            <!--<com.wrapp.floatlabelededittext.FloatLabeledEditText-->
+                <!--float:fletTextAppearance="@style/floatlabelededittext"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_marginBottom="5dp">-->
+
+                <!--<EditText-->
+                    <!--android:inputType="text"-->
+                    <!--android:maxLines = "1"-->
+                    <!--android:textSize="22sp"-->
+                    <!--android:id="@+id/ownerEditText"-->
+                    <!--android:textColorHint="@color/white"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Owner" />-->
+            <!--</com.wrapp.floatlabelededittext.FloatLabeledEditText>-->
+
             <com.wrapp.floatlabelededittext.FloatLabeledEditText
+                android:id="@+id/expectedValueBack"
                 float:fletTextAppearance="@style/floatlabelededittext"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -306,28 +349,7 @@
                 android:layout_marginBottom="5dp">
 
                 <EditText
-                    android:inputType="text"
-                    android:maxLines = "1"
-                    android:textSize="22sp"
-                    android:id="@+id/ownerEditText"
-                    android:textColorHint="@color/white"
-                    android:textColor="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Owner" />
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
-
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
-                float:fletTextAppearance="@style/floatlabelededittext"
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp">
-
-                <EditText
+                    android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:maxLines = "1"
                     android:textSize="22sp"
                     android:inputType="number"
@@ -389,7 +411,17 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="5dp" />
 
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <Spinner
+
                     android:background="@android:color/white"
                     android:id="@+id/color_spinner_info"
                     android:layout_width="0dp"
@@ -405,8 +437,8 @@
 
 
             <Button
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textSize="18sp"
                 android:background="@color/primaryColor"
                 android:textColor="@android:color/white"
@@ -417,7 +449,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NEXT"/>
+                android:text="SAVE"/>
 
         </LinearLayout>
 

@@ -81,12 +81,12 @@
 
         </TableRow>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/CameraRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_below="@+id/vectors"
-            android:layout_weight="4" />
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:id="@+id/CameraRecyclerView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_below="@+id/vectors"-->
+            <!--android:layout_weight="4" />-->
 
     </LinearLayout>
 
@@ -99,34 +99,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <TableRow
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
+        <!--<TableRow-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp">-->
 
-            <Button
-                android:id="@+id/cameraButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/primaryColor"
-                android:text="Camera"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
+            <!--<Button-->
+                <!--android:id="@+id/cameraButton"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@color/primaryColor"-->
+                <!--android:text="Camera"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="18sp" />-->
 
-            <Button
-                android:id="@+id/galleryButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:background="@color/primaryColor"
-                android:text="Gallery"
-                android:textColor="@android:color/white"
-                android:textSize="18sp" />
+            <!--<Button-->
+                <!--android:id="@+id/galleryButton"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@color/primaryColor"-->
+                <!--android:text="Gallery"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:textSize="18sp" />-->
 
-        </TableRow>
+        <!--</TableRow>-->
 
         <TableRow
             android:layout_weight="1"
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@color/primaryColor"
-                android:text="SUBMIT"
+                android:text="Save"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
 

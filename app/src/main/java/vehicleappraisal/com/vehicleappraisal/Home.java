@@ -17,12 +17,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,11 +33,13 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.victor.loading.newton.NewtonCradleLoading;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,19 +48,29 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import me.drakeet.materialdialog.MaterialDialog;
 import vehicleappraisal.com.vehicleappraisal.Tabs.CustomPager;
 import vehicleappraisal.com.vehicleappraisal.Tabs.DrawingFragment;
 import vehicleappraisal.com.vehicleappraisal.Tabs.Fragment1;
 import vehicleappraisal.com.vehicleappraisal.Tabs.Fragment2;
+import vehicleappraisal.com.vehicleappraisal.Tabs.PhotosFragment;
 import vehicleappraisal.com.vehicleappraisal.Tabs.Sketch;
 import vehicleappraisal.com.vehicleappraisal.Tabs.SlidingTabLayout;
 import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
+import vehicleappraisal.com.vehicleappraisal.network.MyApplication;
 import vehicleappraisal.com.vehicleappraisal.network.VolleySingelton;
 
 
-public class Home extends AppCompatActivity implements DrawingFragment.ButtonForSource,Fragment1.frg1Interface,Fragment2.frg2Interface {
+public class Home extends AppCompatActivity implements DrawingFragment.ButtonForSource,Fragment1.frg1Interface,Fragment2.frg2Interface,PhotosFragment.photosInterface {
+
+    private NewtonCradleLoading newtonCradleLoading;
+    private View loadingView;
+    private TextView loadingTextView;
+
 
     String userName,Token;
+
+    MaterialDialog mMaterialDialog;
 
     private Toolbar myToolar;
 
@@ -64,6 +79,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
     private Fragment1 frg1;
     private Fragment2 frg2;
     private DrawingFragment frg3;
+    private PhotosFragment frg4;
 
     private static final int CAMERA_REQUEST = 1888;
     private int PICK_IMAGE_REQUEST = 1;
@@ -85,8 +101,15 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        newtonCradleLoading = (NewtonCradleLoading)findViewById(R.id.newton_cradle_loading);
+        loadingView = (View)findViewById(R.id.loadingView);
+        loadingTextView = (TextView)findViewById(R.id.loadingTextView);
+
+        startLoading();
+
         myToolar = (Toolbar)findViewById(R.id.app_bar_id);
         setSupportActionBar(myToolar);
+        getSupportActionBar().setTitle("");
 
 //        myTabLayout.setBackgroundColor(Color.WHITE);
 
@@ -109,6 +132,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         try {
             postObj.put("TokenValue",Token);
         } catch (JSONException e) {
+            stopLoading();
             e.printStackTrace();
         }
 
@@ -158,10 +182,11 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                             frg2.setserviecHistorySpinnerData(serviecHistorySpinnerData,serviecHistorySpinnerDataIndex);
 
 //                            frg2.setServicePackageSpinnerData(ServicePackageSpinnerData);
-
+                            stopLoading();
 
 
                         } catch (JSONException e) {
+                            stopLoading();
                             e.printStackTrace();
                         }
 
@@ -172,6 +197,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Response",error.toString());
+                        stopLoading();
                     }
                 }
         );
@@ -207,16 +233,18 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         frg3 = DrawingFragment.getInstance();
         frg3.setMyContext(this);
         frg3.setMy_ButtonForSource(this);
+        frg4 = PhotosFragment.getInstance();
+        frg4.setMy_photosInterface(this);
+
 
         mPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         myTabLayout.setDistributeEvenly(false);
-        myTabLayout.setTabWeights(new int[]{3,3,2});
+        myTabLayout.setTabWeights(new int[]{3,3,2,2});
         myTabLayout.setViewPager(mPager);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
@@ -236,19 +264,19 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void cameraSelected() {
-        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
-    }
+//    @Override
+//    public void cameraSelected() {
+//        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+//    }
 
-    @Override
-    public void GallerySelected() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
+//    @Override
+//    public void GallerySelected() {
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+//    }
 
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -279,7 +307,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
 //            imageView.setImageBitmap(photo);
-            frg3.AddData(photo);
+            frg4.AddData(photo);
         }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
@@ -288,7 +316,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 //                frg2.setUserImage(bitmap);
-                frg3.AddData(bitmap);
+                frg4.AddData(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -331,14 +359,23 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
     }
 
     @Override
-    public void navigateToPage1() {
+    public void navigateTpLastPage() {
         mPager.setPagingEnabled(true);
-        mPager.setCurrentItem(0);
+        mPager.setCurrentItem(3);
         mPager.setPagingEnabled(false);
     }
 
     @Override
+    public void NavigateTpPage1() {
+        mPager.setPagingEnabled(true);
+        mPager.setCurrentItem(0);
+        mPager.setPagingEnabled(false);
+        frg1.highlighthNecessary();
+    }
+
+    @Override
     public void submitDataToServer() {
+        startLoading();
         JSONObject params = new JSONObject();
         try {
             params.put("RegNo", mySingeltonData.regNo);
@@ -351,7 +388,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
             params.put("MOTDueDate", mySingeltonData.motDate);
 //
             params.put("RegDate", mySingeltonData.regDate);
-            params.put("NoOfOwners", getIntFromString(mySingeltonData.owner));
+            params.put("NoOfOwners", getIntFromString(mySingeltonData.owner.toString()));
 //
             params.put("RFLExpiryDate", mySingeltonData.rflDate);
             params.put("VanImported", mySingeltonData.vanImported);
@@ -362,11 +399,11 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
             params.put("Warranty", mySingeltonData.warrenty);
             params.put("Accidents", mySingeltonData.accidents);
 //
-            params.put("VehicleMaintainID", getIntFromString(mySingeltonData.howDoYouMantain));
-            params.put("ServicePackage", getIntFromString(mySingeltonData.servicePackage));
+            params.put("VehicleMaintainID", getIntFromString(mySingeltonData.howDoYouMantain.toString()));
+            params.put("ServicePackage", getIntFromString(mySingeltonData.servicePackage.toString()));
 //
-            params.put("ColourID", getIntFromString(mySingeltonData.color));
-            params.put("ServiceHistoryID", getIntFromString(mySingeltonData.serviceHistory));
+            params.put("ColourID", getIntFromString(mySingeltonData.color.toString()));
+            params.put("ServiceHistoryID", getIntFromString(mySingeltonData.serviceHistory.toString()));
 //
             params.put("AppraisalStatusID", 1);
             params.put("AppraisalDate", DateFormat.getDateTimeInstance().format(new Date()).toString());
@@ -381,6 +418,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
         } catch (JSONException e) {
             e.printStackTrace();
+            stopLoading();
         }
 
         String url = "http://testwip.northside.co.uk/Broker/Broker.svc/CreateAppraisal";
@@ -394,13 +432,18 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                         mPager.setPagingEnabled(true);
                         mPager.setCurrentItem(0);
                         mPager.setPagingEnabled(false);
-                        Toast.makeText(Home.this,"All Done",Toast.LENGTH_LONG).show();
+//                        Toast.makeText(Home.this,"All Done",Toast.LENGTH_LONG).show();
+
+                        sendVectorImages();
+//                        showResultDialogBox();
+//                        SimpleDialogFragment.createBuilder(MyApplication.getAppContext(), getSupportFragmentManager()).setMessage(messageStr).show();
                     }
                 },
 
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        stopLoading();
                         Toast.makeText(Home.this,"There Was Some Error Please Try Again In Some Time",Toast.LENGTH_LONG).show();
                     }
                 }
@@ -410,13 +453,137 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
         Log.d("Sending Data", params.toString());
 
         VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(finalDataPOSTRequest);
+
+    }
+
+    private void sendVectorImages(){
+        JSONObject paramsVector = new JSONObject();
+        try {
+            paramsVector.put("TokenValue", this.Token);
+            paramsVector.put("RegNo",mySingeltonData.regNo);
+
+            if(mySingeltonData.getVector1()!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                mySingeltonData.getVector1().compress(Bitmap.CompressFormat.JPEG, 0, stream);
+                byte[] byteArray1 = stream.toByteArray();
+                String encoded = Base64.encodeToString(byteArray1, Base64.DEFAULT);
+                paramsVector.put("Image1",encoded);
+
+            }else{
+                paramsVector.put("Image1","null");
+            }
+
+            if(mySingeltonData.getVector2()!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                mySingeltonData.getVector2().compress(Bitmap.CompressFormat.JPEG, 0, stream);
+
+                byte[] byteArray2 = stream.toByteArray();
+                String encoded2 = Base64.encodeToString(byteArray2, Base64.DEFAULT);
+                paramsVector.put("Image2",encoded2);
+
+            }else{
+                paramsVector.put("Image2","null");
+            }
+
+            if(mySingeltonData.getVector3()!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                mySingeltonData.getVector3().compress(Bitmap.CompressFormat.JPEG, 0, stream);
+                byte[] byteArray3 = stream.toByteArray();
+                String encoded3 = Base64.encodeToString(byteArray3, Base64.DEFAULT);
+                paramsVector.put("Image3",encoded3);
+            }else{
+                paramsVector.put("Image3","null");
+            }
+
+            if(mySingeltonData.getVector4()!=null){
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                mySingeltonData.getVector4().compress(Bitmap.CompressFormat.JPEG, 0, stream);
+                byte[] byteArray4 = stream.toByteArray();
+                String encoded4 = Base64.encodeToString(byteArray4, Base64.DEFAULT);
+                paramsVector.put("Image4",encoded4);
+            }else{
+                paramsVector.put("Image4","null");
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            stopLoading();
+        }
+
+
+        JsonObjectRequest vectorImageRequest = new JsonObjectRequest(Request.Method.POST, "http://testwip.northside.co.uk/Broker/Broker.svc/UploadVectorImages", paramsVector,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        mPager.setPagingEnabled(true);
+                        mPager.setCurrentItem(0);
+                        mPager.setPagingEnabled(false);
+                        stopLoading();
+                        showResultDialogBox();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        stopLoading();
+                        Toast.makeText(Home.this,"There Was Some Error Please Try Again In Some Time",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+        Log.d("params",paramsVector.toString());
+
+        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(vectorImageRequest);
+        mySingeltonData.setVector1Bitmap(null);
+        mySingeltonData.setVector2Bitmap(null);
+        mySingeltonData.setVector3Bitmap(null);
+        mySingeltonData.setVector4Bitmap(null);
     }
 
     private int getIntFromString(String str){
+        if(str.equalsIgnoreCase("")){
+            return 1;
+        }
         return Integer.parseInt(str);
     }
 
+    @Override
+    public void cameraSelected() {
+        Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+    }
 
+    private void showResultDialogBox(){
+        mMaterialDialog = new MaterialDialog(this)
+                .setTitle("MaterialDialog")
+                .setMessage("Hello world!")
+                .setPositiveButton("OK", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mMaterialDialog.dismiss();
+                    }
+                });
+
+        mMaterialDialog.show();
+
+        mMaterialDialog.setTitle("Success");
+        mMaterialDialog.show();
+// You can change the message anytime. after show
+        String messageStr = "\n\n" + getResources().getString(R.string.finalMessage) + "\n\n";
+        mMaterialDialog.setMessage(messageStr);
+    }
+
+
+
+    @Override
+    public void GallerySelected() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
 
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -438,6 +605,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                     return frg2;
                 case 2:
                     return frg3;
+                case 3:return frg4;
                 default:
                     return frg1;
             }
@@ -451,8 +619,22 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
+    }
+
+    public void startLoading(){
+        newtonCradleLoading.setAlpha((float) 1.0);
+        newtonCradleLoading.start();
+        loadingView.setAlpha((float) 0.7);
+        loadingTextView.setAlpha((float) 1.0);
+    }
+
+    public void stopLoading(){
+        newtonCradleLoading.setAlpha((float) 0.0);
+        newtonCradleLoading.stop();
+        loadingView.setAlpha((float) 0.0);
+        loadingTextView.setAlpha((float) 0.0);
     }
 
     @Override

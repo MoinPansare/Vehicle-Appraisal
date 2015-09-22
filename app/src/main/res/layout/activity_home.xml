@@ -41,7 +41,31 @@
 
     </LinearLayout>
 
+    <View
+        android:alpha="0.0"
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"/>
 
+    <com.victor.loading.newton.NewtonCradleLoading
+        android:id="@+id/newton_cradle_loading"
+        android:alpha="0.0"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:layout_centerInParent="true" />
+
+    <TextView
+        android:alpha="0.0"
+        android:id="@+id/loadingTextView"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newton_cradle_loading"
+        android:text="LOADING..."
+        android:textColor="@android:color/white"
+        android:layout_marginTop="-20dp" />
 
 
 </RelativeLayout>

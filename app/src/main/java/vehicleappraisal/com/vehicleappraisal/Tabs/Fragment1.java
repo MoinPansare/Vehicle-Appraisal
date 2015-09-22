@@ -4,6 +4,7 @@ package vehicleappraisal.com.vehicleappraisal.Tabs;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import vehicleappraisal.com.vehicleappraisal.R;
+import vehicleappraisal.com.vehicleappraisal.external.FloatLabeledEditText;
 import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
 import vehicleappraisal.com.vehicleappraisal.network.MyApplication;
 
@@ -36,6 +38,8 @@ import vehicleappraisal.com.vehicleappraisal.network.MyApplication;
 public class Fragment1 extends Fragment {
 
 //    private MFCalendarView myCalender1;
+
+    View regBack,engineBack,expectedValueBack;
 
     private String ownerSpinnerValue = "";
     private String colorSpinnerVlaue = "";
@@ -81,6 +85,12 @@ public class Fragment1 extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_fragment1, container, false);
+
+
+        regBack = view.findViewById(R.id.regNoBack);
+        engineBack = view.findViewById(R.id.engineBack);
+        expectedValueBack = view.findViewById(R.id.expectedValueBack);
+
 
         regNo_EditText = (EditText)view.findViewById(R.id.regNoEditText);
         engine_EditText = (EditText)view.findViewById(R.id.engineEditText);
@@ -247,7 +257,7 @@ public class Fragment1 extends Fragment {
         public void onDateSet(DatePicker view, int year, int month, int day) {
             // Do something with the date chosen by the user
             switch (index){
-                case 1 : passedTextView.setText("Reg. Date  :  "+day+"/"+(month+1)+"/"+year);break;
+                case 1 : passedTextView.setText("Registration Date  :  "+day+"/"+(month+1)+"/"+year);break;
                 case 2 : passedTextView.setText("MOT Due  :  "+day+"/"+(month+1)+"/"+year);break;
                 case 3 : passedTextView.setText("RFL Date  :  "+day+"/"+(month+1)+"/"+year);break;
             }
@@ -258,33 +268,46 @@ public class Fragment1 extends Fragment {
         Toast.makeText(MyApplication.getAppContext(),str,Toast.LENGTH_LONG).show();
     }
 
+    public void highlighthNecessary(){
+        if(regNo_EditText.getText().toString().equalsIgnoreCase("")){
+            regBack.setBackgroundColor(Color.RED);
+        }
+        if(engine_EditText.getText().toString().equalsIgnoreCase("")){
+            engineBack.setBackgroundColor(Color.RED);
+        }
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
+            date1FromPicker.setBackgroundColor(Color.RED);
+        }
+        if(expectedValue_EditText.getText().toString().equalsIgnoreCase("")){
+            expectedValueBack.setBackgroundColor(Color.RED);
+        }
+    }
+
     public void saveDataToSingelton(){
 
-
-//        regNo_EditText = (EditText)view.findViewById(R.id.regNoEditText);
-//        engine_EditText = (EditText)view.findViewById(R.id.engineEditText);
-//        model_EditText = (EditText)view.findViewById(R.id.modelEditText);
-//        variant_EditText = (EditText)view.findViewById(R.id.variantEditText);
-//        extra_EditText = (EditText)view.findViewById(R.id.extraEditText);
-//        make_EditText = (EditText)view.findViewById(R.id.makeEditText);
-//        mileage_EditText = (EditText)view.findViewById(R.id.mileageEditText);
-//        owner_EditText = (EditText)view.findViewById(R.id.ownerEditText);
-//        expectedValue_EditText = (EditText)view.findViewById(R.id.expectedValueEditText);
+        regBack.setBackgroundColor(Color.TRANSPARENT);
+        engineBack.setBackgroundColor(Color.TRANSPARENT);
+        date1FromPicker.setBackgroundColor(Color.TRANSPARENT);
+        expectedValueBack.setBackgroundColor(Color.TRANSPARENT);
 
         if(regNo_EditText.getText().toString().equalsIgnoreCase("")){
             showToast("Please Enter Registration Number");
+            highlighthNecessary();
             return;
         }
         if(engine_EditText.getText().toString().equalsIgnoreCase("")){
             showToast("Please Enter Engine Information");
+            highlighthNecessary();
             return;
         }
-        if(date1FromPicker.getText().toString().equalsIgnoreCase("Reg. Date")){
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
             showToast("Please Select Registration Date");
+            highlighthNecessary();
             return;
         }
         if(expectedValue_EditText.getText().toString().equalsIgnoreCase("")){
             showToast("Please Enter Expected Value");
+            highlighthNecessary();
             return;
         }
 
@@ -303,10 +326,10 @@ public class Fragment1 extends Fragment {
         mySingelton.color = colorSpinnerDataIndex.get(colorSpinnerData.indexOf(colorSpinnerVlaue));
 
         String date1Selected = date1FromPicker.getText().toString();
-        if(date1FromPicker.getText().toString().equalsIgnoreCase("Reg. Date")){
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
 //            showToast("Please Select Registration Date");
         }else{
-            date1Selected = date1Selected.substring(14);
+            date1Selected = date1Selected.substring(22);
             mySingelton.regDate = date1Selected;
         }
 

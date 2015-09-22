@@ -36,7 +36,7 @@ import vehicleappraisal.com.vehicleappraisal.external.SingeltonData;
 public class Sketch extends AppCompatActivity {
 
     private MyDrawView sketchImage;
-    private Button saveButton,cancelButton;
+    private Button saveButton,cancelButton,clearButton;
 
     public String indexOfImage = "";
     public Bitmap drawing;
@@ -74,35 +74,26 @@ public class Sketch extends AppCompatActivity {
                 if (my_SingeltonData.getVector1() != null) {
                     Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector1());
                     sketchImage.setBackgroundDrawable(dr);
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector1()));
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector1()));
                 }
                 break;
             case "2":
                 if (my_SingeltonData.getVector2() != null) {
                     Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector2());
                     sketchImage.setBackgroundDrawable(dr);
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector2()));
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector2()));
                 }
                 break;
             case "3":
                 if (my_SingeltonData.getVector3() != null) {
                     Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector3());
                     sketchImage.setBackgroundDrawable(dr);
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector3()));
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector3()));
                 }
                 break;
             case "4":
                 if (my_SingeltonData.getVector4() != null) {
                     Drawable dr = new BitmapDrawable(getResources(), my_SingeltonData.getVector4());
                     sketchImage.setBackgroundDrawable(dr);
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector4()));
-//                    sketchImage.setBackground(new BitmapDrawable(getResources(), my_SingeltonData.getVector4()));
                 }
                 break;
-//            default: sketchImage.getBackground(new BitmapDrawable(getResources(),my_SingeltonData.getVector1()));break;
         }
 
 
@@ -123,6 +114,32 @@ public class Sketch extends AppCompatActivity {
 //                    finishAfterTransition();
 //                }
                 finish();
+            }
+        });
+
+        clearButton = (Button)findViewById(R.id.clearButton);
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (indexOfImage){
+
+                    case "1":sketchImage.clear();
+                        Bitmap bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.van1);
+                        sketchImage.setBackgroundDrawable(new BitmapDrawable(getResources(),bmp1));
+                        break;
+                    case "2":sketchImage.clear();
+                        Bitmap bmp2 = BitmapFactory.decodeResource(getResources(), R.drawable.van2);
+                        sketchImage.setBackgroundDrawable(new BitmapDrawable(getResources(),bmp2));
+                        break;
+                    case "3":sketchImage.clear();
+                        Bitmap bmp3 = BitmapFactory.decodeResource(getResources(), R.drawable.van3);
+                        sketchImage.setBackgroundDrawable(new BitmapDrawable(getResources(),bmp3));
+                        break;
+                    case "4":sketchImage.clear();
+                        Bitmap bmp4 = BitmapFactory.decodeResource(getResources(), R.drawable.van4);
+                        sketchImage.setBackgroundDrawable(new BitmapDrawable(getResources(),bmp4));
+                        break;
+                }
             }
         });
 

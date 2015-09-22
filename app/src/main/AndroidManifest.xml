@@ -36,6 +36,10 @@
             android:name=".Tabs.Sketch"
             android:label="@string/title_activity_sketch" >
         </activity>
+        <activity
+            android:name=".external.NewtonCradleActivity"
+            android:label="@string/title_activity_newton_cradle" >
+        </activity>
     </application>
 
 </manifest>

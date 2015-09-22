@@ -5,15 +5,19 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.LruCache;
 import android.view.MotionEvent;
 import android.view.View;
+
+import vehicleappraisal.com.vehicleappraisal.R;
 
 public class MyDrawView extends View{
 
@@ -108,21 +112,20 @@ public class MyDrawView extends View{
 
     public Bitmap getBitmap()
     {
-        //this.measure(100, 100);
-        //this.layout(0, 0, 100, 100);
         this.setDrawingCacheEnabled(true);
         this.buildDrawingCache();
         Bitmap bmp = Bitmap.createBitmap(this.getDrawingCache());
         this.setDrawingCacheEnabled(false);
-
-
         return bmp;
     }
 
 
 
     public void clear(){
-        mBitmap.eraseColor(Color.GREEN);
+//        mBitmap.eraseColor(Color.WHITE);
+        mBitmap.eraseColor(Color.TRANSPARENT);
+//        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.van1);
+//        mCanvas.drawBitmap(bmp,0,0,mBitmapPaint);
         invalidate();
         System.gc();
 

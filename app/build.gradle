@@ -34,4 +34,7 @@ dependencies {
     compile 'com.github.mcxiaoke:android-volley:1.0.18'
     compile 'com.wrapp.floatlabelededittext:library:0.0.6'
     compile 'com.kyleduo.switchbutton:library:1.2.9'
+
+    compile 'me.drakeet.materialdialog:library:1.2.2'
+    compile 'com.victor:lib:1.0.1'
 }

@@ -27,7 +27,9 @@
                 float:fletTextAppearance="@style/floatlabelededittext"
                 android:layout_marginBottom="5dp">
 
+                <!--android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ "-->
                 <EditText
+
                     android:layout_marginTop="@dimen/floatLabelEditTextMarginTop"
                     android:inputType="textCapCharacters"
                     android:maxLines = "1"

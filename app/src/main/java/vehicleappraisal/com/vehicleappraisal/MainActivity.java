@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
+
     }
 
     private void validateAndCheck() throws JSONException {
@@ -117,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        stopLoading();
+//                        stopLoading();
                         NavigateToHomePage(response);
                     }
                 },
@@ -221,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showError(int code,String someMessage) {
+        stopLoading();
         switch (code) {
             case 1:
                 Toast.makeText(this, "Something went wrong \n Please try again after some time", Toast.LENGTH_LONG).show();
@@ -273,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        stopLoading();
         password.setText("");
         userName.setText("");
         userName.requestFocus();

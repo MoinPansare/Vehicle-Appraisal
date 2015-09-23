@@ -17,8 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.victor.loading.newton.NewtonCradleLoading;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,11 +31,10 @@ import vehicleappraisal.com.vehicleappraisal.network.MyApplication;
 public class PhotosFragment extends Fragment {
 
 
-
     public photosInterface my_photosInterface;
     private TextView indicatorTextView;
 
-    private Button CameraButton,GalleryButton;
+    private Button CameraButton, GalleryButton;
 
     private RecyclerView CameraRecyclerView;
 
@@ -57,7 +54,7 @@ public class PhotosFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PhotosFragment getInstance(){
+    public static PhotosFragment getInstance() {
         return (new PhotosFragment());
     }
 
@@ -68,35 +65,45 @@ public class PhotosFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_photos, container, false);
 
-        indicatorTextView = (TextView)view.findViewById(R.id.hintTextViewPhotos);
+        indicatorTextView = (TextView) view.findViewById(R.id.hintTextViewPhotos);
 
-        CameraRecyclerView = (RecyclerView)view.findViewById(R.id.CameraRecyclerView);
-        myAdapter = new CameraAdapter(MyApplication.getAppContext(),data);
+        CameraRecyclerView = (RecyclerView) view.findViewById(R.id.CameraRecyclerView);
+        myAdapter = new CameraAdapter(MyApplication.getAppContext(), data);
         CameraRecyclerView.setLayoutManager(new GridLayoutManager(MyApplication.getAppContext(), 2));
 //        myAdapter.setsomeListData(this);
 
         CameraRecyclerView.setAdapter(myAdapter);
 
 
-        CameraButton = (Button)view.findViewById(R.id.cameraButton);
+        CameraButton = (Button) view.findViewById(R.id.cameraButton);
 
         CameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                my_photosInterface.cameraSelected();
+                if (data.size() < 4) {
+                    my_photosInterface.cameraSelected();
+                } else {
+                    Toast.makeText(MyApplication.getAppContext(), "You Can Add Only 4 Images In One Report", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
-        GalleryButton = (Button)view.findViewById(R.id.galleryButton);
+        GalleryButton = (Button) view.findViewById(R.id.galleryButton);
 
         GalleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                my_photosInterface.GallerySelected();
+
+                if (data.size() < 4) {
+                    my_photosInterface.GallerySelected();
+                } else {
+                    Toast.makeText(MyApplication.getAppContext(), "You Can Add Only 4 Images In One Report", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        submitButton = (Button)view.findViewById(R.id.submitButton1);
+        submitButton = (Button) view.findViewById(R.id.submitButton1);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,56 +115,51 @@ public class PhotosFragment extends Fragment {
         return view;
     }
 
-    public void AddData(Bitmap someBitmap){
+    public void AddData(Bitmap someBitmap) {
         data.add(someBitmap);
         myAdapter.notifyDataSetChanged();
-        if(data.size()>0){
-            indicatorTextView.setAlpha((float)0.0);
-        }
-        else{
-            indicatorTextView.setAlpha((float)1.0);
+        if (data.size() > 0) {
+            indicatorTextView.setAlpha((float) 0.0);
+        } else {
+            indicatorTextView.setAlpha((float) 1.0);
         }
     }
 
-    private void prepareToSendData(){
-        if(mySingeltonData.regNo.equalsIgnoreCase("")){
+    private void prepareToSendData() {
+        if (mySingeltonData.regNo.equalsIgnoreCase("")) {
             showToast("Please Enter Registration Number");
         }
-        if(mySingeltonData.engine.equalsIgnoreCase("")){
+        if (mySingeltonData.engine.equalsIgnoreCase("")) {
             showToast("Please Enter Engine Information");
         }
-        if(mySingeltonData.regDate.equalsIgnoreCase("Reg. Date")){
+        if (mySingeltonData.regDate.equalsIgnoreCase("Reg. Date")) {
             showToast("Please Select Registration Date");
             return;
         }
-        if(mySingeltonData.expectedValue.equalsIgnoreCase("")){
+        if (mySingeltonData.expectedValue.equalsIgnoreCase("")) {
             showToast("Please Enter Expected Value");
             return;
         }
-        my_photosInterface.submitDataToServer();
+        my_photosInterface.submitDataToServer(data);
     }
 
-    private void showToast(String str){
+    private void showToast(String str) {
         Toast.makeText(MyApplication.getAppContext(), str, Toast.LENGTH_LONG).show();
         my_photosInterface.NavigateTpPage1();
     }
 
-    private void deleteItemAtposition(int position){
-        if(data.size()==0){
+    private void deleteItemAtposition(int position) {
+        if (data.size() == 0) {
             return;
         }
         data.remove(position);
         myAdapter.notifyDataSetChanged();
-        if(data.size()>0){
-            indicatorTextView.setAlpha((float)0.0);
-        }
-        else{
-            indicatorTextView.setAlpha((float)1.0);
+        if (data.size() > 0) {
+            indicatorTextView.setAlpha((float) 0.0);
+        } else {
+            indicatorTextView.setAlpha((float) 1.0);
         }
     }
-
-
-
 
 
     //--------------------
@@ -169,7 +171,7 @@ public class PhotosFragment extends Fragment {
         private LayoutInflater inflator;
 
 
-        public CameraAdapter(Context context,List<Bitmap>someData) {
+        public CameraAdapter(Context context, List<Bitmap> someData) {
 
             myContext = context;
             inflator = LayoutInflater.from(myContext);
@@ -185,12 +187,12 @@ public class PhotosFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CameraCellViewHolder cameraCellViewHolder, int i) {
-            try{
+            try {
                 Bitmap thisBitmap = data.get(i);
-                Drawable dr = new BitmapDrawable(getResources(),thisBitmap);
+                Drawable dr = new BitmapDrawable(getResources(), thisBitmap);
 //                cameraCellViewHolder.mainImage.setBackgroundDrawable(dr);
                 cameraCellViewHolder.mainImage.setImageBitmap(thisBitmap);
-            }catch (Exception e){
+            } catch (Exception e) {
 //                cameraCellViewHolder.mainImage.setImageResource(R.drawable.bg123);
             }
         }
@@ -200,7 +202,7 @@ public class PhotosFragment extends Fragment {
 //            if(data.size() == 0){
 //                return 1;
 //            }else{
-                return data.size();
+            return data.size();
 //            }
 
 //            return ;
@@ -217,8 +219,8 @@ public class PhotosFragment extends Fragment {
         public CameraCellViewHolder(View itemView) {
             super(itemView);
 
-            mainImage = (ImageView)itemView.findViewById(R.id.camera_Cell_ImageView);
-            deleteButton = (ImageView)itemView.findViewById(R.id.deleteImage);
+            mainImage = (ImageView) itemView.findViewById(R.id.camera_Cell_ImageView);
+            deleteButton = (ImageView) itemView.findViewById(R.id.deleteImage);
 
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -231,12 +233,14 @@ public class PhotosFragment extends Fragment {
     }
 
 
-
-    public interface photosInterface{
+    public interface photosInterface {
         public void cameraSelected();
+
         public void GallerySelected();
+
         public void NavigateTpPage1();
-        public void submitDataToServer();
+
+        public void submitDataToServer(List<Bitmap> data);
     }
 
 

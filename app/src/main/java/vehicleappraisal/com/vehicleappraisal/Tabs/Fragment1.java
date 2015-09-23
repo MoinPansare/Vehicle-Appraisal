@@ -8,7 +8,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +28,10 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import vehicleappraisal.com.vehicleappraisal.R;
 import vehicleappraisal.com.vehicleappraisal.external.FloatLabeledEditText;
@@ -210,6 +216,11 @@ public class Fragment1 extends Fragment {
             }
         });
 
+
+        regNo_EditText.setFilters(new InputFilter[]{new InputFilter.AllCaps()});
+
+
+
         return view;
 
 
@@ -275,7 +286,7 @@ public class Fragment1 extends Fragment {
         if(engine_EditText.getText().toString().equalsIgnoreCase("")){
             engineBack.setBackgroundColor(Color.RED);
         }
-        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date  :  ")){
             date1FromPicker.setBackgroundColor(Color.RED);
         }
         if(expectedValue_EditText.getText().toString().equalsIgnoreCase("")){
@@ -300,11 +311,44 @@ public class Fragment1 extends Fragment {
             highlighthNecessary();
             return;
         }
-        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date  :  ")){
             showToast("Please Select Registration Date");
             highlighthNecessary();
             return;
         }
+
+        String initialSplit = date1FromPicker.getText().toString().substring(22);
+        String[] arr = initialSplit.split(":");
+        String temp123 = arr[0].toString();
+        String[] arr2 = temp123.split("/");
+        int date =  Integer.parseInt(arr2[0]);
+        int month = Integer.parseInt(arr2[1]);
+        int year = Integer.parseInt(arr2[2]);
+
+        String TodaysDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        String[] arr12 = TodaysDate.split("-");
+        int todaysDate = Integer.parseInt(arr12[0]);
+        int todaysMonth = Integer.parseInt(arr12[1]);
+        int todaysYear = Integer.parseInt(arr12[2]);
+
+        if(todaysYear<year){
+            date1FromPicker.setBackgroundColor(Color.RED);
+            Toast.makeText(MyApplication.getAppContext(),"Selecting A Future Date Is Not Permitted",Toast.LENGTH_LONG).show();
+            return;
+        }else{
+            if(todaysMonth<month){
+                date1FromPicker.setBackgroundColor(Color.RED);
+                Toast.makeText(MyApplication.getAppContext(),"Selecting A Future Date Is Not Permitted",Toast.LENGTH_LONG).show();
+                return;
+            }else{
+                if(todaysDate<date){
+                    date1FromPicker.setBackgroundColor(Color.RED);
+                    Toast.makeText(MyApplication.getAppContext(),"Selecting A Future Date Is Not Permitted",Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        }
+
         if(expectedValue_EditText.getText().toString().equalsIgnoreCase("")){
             showToast("Please Enter Expected Value");
             highlighthNecessary();
@@ -326,7 +370,7 @@ public class Fragment1 extends Fragment {
         mySingelton.color = colorSpinnerDataIndex.get(colorSpinnerData.indexOf(colorSpinnerVlaue));
 
         String date1Selected = date1FromPicker.getText().toString();
-        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date")){
+        if(date1FromPicker.getText().toString().equalsIgnoreCase("Registration Date  :  ")){
 //            showToast("Please Select Registration Date");
         }else{
             date1Selected = date1Selected.substring(22);
@@ -354,7 +398,13 @@ public class Fragment1 extends Fragment {
 
     public interface frg1Interface{
         public void data1Entered();
+        public void backInFocus();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        date1FromPicker.setText("Registration Date  :  "+mySingelton.regDate);
+        my_frg1Interface.backInFocus();
+    }
 }

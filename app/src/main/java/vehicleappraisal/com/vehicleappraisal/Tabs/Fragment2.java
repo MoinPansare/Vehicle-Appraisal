@@ -246,7 +246,12 @@ public class Fragment2 extends Fragment {
 
     public interface frg2Interface{
         public void data2Entered();
+        public void frg2BackInFocus();
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        my_frg2Interface.frg2BackInFocus();
+    }
 }

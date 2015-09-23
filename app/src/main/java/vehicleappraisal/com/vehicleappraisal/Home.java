@@ -6,12 +6,15 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.SyncStateContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -47,6 +50,7 @@ import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import me.drakeet.materialdialog.MaterialDialog;
 import vehicleappraisal.com.vehicleappraisal.Tabs.CustomPager;
@@ -88,8 +92,19 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
     private RequestQueue myRequestQueue;
 
     private final String URLFORGET = "http://testwip.northside.co.uk/Broker/Broker.svc/GetTableData";
+    private final String cameraImagesURL = "http://testwip.northside.co.uk/Broker/Broker.svc/UploadUserImages";
+
 
     private SingeltonData mySingeltonData = SingeltonData.getMy_SingeltonData_Reference();
+
+    ArrayList<String> colorSpinnerData = new ArrayList<String>();
+    ArrayList<String> colorSpinnerDataIndex = new ArrayList<String>();
+
+    ArrayList<String> MantainSpinnerData = new ArrayList<String>();
+    ArrayList<String> MantainSpinnerDataIndex = new ArrayList<String>();
+
+    ArrayList<String> serviecHistorySpinnerData = new ArrayList<String>();
+    ArrayList<String> serviecHistorySpinnerDataIndex = new ArrayList<String>();
 
 
     @Override
@@ -143,10 +158,19 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                     public void onResponse(JSONObject response) {
                         Log.d("Response",response.toString());
 
+
+                        colorSpinnerData = new ArrayList<String>();
+                        colorSpinnerDataIndex = new ArrayList<String>();
+
+                        MantainSpinnerData = new ArrayList<String>();
+                        MantainSpinnerDataIndex = new ArrayList<String>();
+
+                        serviecHistorySpinnerData = new ArrayList<String>();
+                        serviecHistorySpinnerDataIndex = new ArrayList<String>();
+
+
                         try {
                             JSONArray colorArray = response.getJSONArray("Colours");
-                            ArrayList<String> colorSpinnerData = new ArrayList<String>();
-                            ArrayList<String> colorSpinnerDataIndex = new ArrayList<String>();
 
                             for(int i=0;i<colorArray.length();i++){
                                 JSONObject obj = colorArray.getJSONObject(i);
@@ -156,8 +180,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
 
                             JSONArray VehicleMaintenanceArr = response.getJSONArray("VehicleMaintenance");
-                            ArrayList<String> MantainSpinnerData = new ArrayList<String>();
-                            ArrayList<String> MantainSpinnerDataIndex = new ArrayList<String>();
+
 
                             for(int i=0;i<VehicleMaintenanceArr.length();i++){
                                 JSONObject obj = VehicleMaintenanceArr.getJSONObject(i);
@@ -166,8 +189,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                             }
 
                             JSONArray VehicleServiceHistoryArr = response.getJSONArray("VehicleServiceHistory");
-                            ArrayList<String> serviecHistorySpinnerData = new ArrayList<String>();
-                            ArrayList<String> serviecHistorySpinnerDataIndex = new ArrayList<String>();
+
 
                             for(int i=0;i<VehicleServiceHistoryArr.length();i++){
                                 JSONObject obj = VehicleServiceHistoryArr.getJSONObject(i);
@@ -301,13 +323,24 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
     }
 
-
+    private Bitmap getCompressedBitmap(Bitmap someBitmap){
+        if(someBitmap!=null){
+            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+            Bitmap someBitmap1 = Bitmap.createScaledBitmap(someBitmap,200,200,true);
+            someBitmap1.compress(Bitmap.CompressFormat.JPEG,0,stream1);
+//            byte[] byteArr1 = stream1.toByteArray();
+//            encoded1 = Base64.encodeToString(byteArr1,Base64.NO_PADDING);
+            return someBitmap1;
+        }
+        return null;
+    }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
+
 //            imageView.setImageBitmap(photo);
-            frg4.AddData(photo);
+            frg4.AddData(getCompressedBitmap(photo));
         }
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
@@ -315,8 +348,12 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-//                frg2.setUserImage(bitmap);
-                frg4.AddData(bitmap);
+                if(bitmap != null){
+                    frg4.AddData(getCompressedBitmap(bitmap));
+                }else{
+                    Toast.makeText(Home.this,"Please Select A Valid Image",Toast.LENGTH_LONG).show();
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -352,10 +389,21 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
     }
 
     @Override
+    public void backInFocus() {
+        frg1.setColors(colorSpinnerData, colorSpinnerDataIndex);
+    }
+
+    @Override
     public void data2Entered() {
         mPager.setPagingEnabled(true);
         mPager.setCurrentItem(2);
         mPager.setPagingEnabled(false);
+    }
+
+    @Override
+    public void frg2BackInFocus() {
+        frg2.setMantainSpinnerData(MantainSpinnerData, MantainSpinnerDataIndex);
+        frg2.setserviecHistorySpinnerData(serviecHistorySpinnerData, serviecHistorySpinnerDataIndex);
     }
 
     @Override
@@ -374,7 +422,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
     }
 
     @Override
-    public void submitDataToServer() {
+    public void submitDataToServer(final List<Bitmap> data) {
         startLoading();
         JSONObject params = new JSONObject();
         try {
@@ -434,7 +482,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                         mPager.setPagingEnabled(false);
 //                        Toast.makeText(Home.this,"All Done",Toast.LENGTH_LONG).show();
 
-                        sendVectorImages();
+                        sendVectorImages(data);
 //                        showResultDialogBox();
 //                        SimpleDialogFragment.createBuilder(MyApplication.getAppContext(), getSupportFragmentManager()).setMessage(messageStr).show();
                     }
@@ -456,7 +504,7 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
 
     }
 
-    private void sendVectorImages(){
+    private void sendVectorImages(final List<Bitmap> data){
         JSONObject paramsVector = new JSONObject();
         try {
             paramsVector.put("TokenValue", this.Token);
@@ -516,10 +564,172 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+//                        mPager.setPagingEnabled(true);
+//                        mPager.setCurrentItem(0);
+//                        mPager.setPagingEnabled(false);
+                        sendSelectedImages(data);
+//                        stopLoading();
+//                        showResultDialogBox();
+                    }
+                },
+
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        stopLoading();
+                        Toast.makeText(Home.this,"There Was Some Error Please Try Again In Some Time",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+
+
+        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(vectorImageRequest);
+
+    }
+
+    private void sendSelectedImages(final List<Bitmap> data){
+
+        JSONObject paramsImages = new JSONObject();
+        try {
+
+            String encoded1 = "null";
+            String encoded2 = "null";
+            String encoded3 = "null";
+            String encoded4 = "null";
+
+
+            paramsImages.put("TokenValue", this.Token);
+            paramsImages.put("RegNo",mySingeltonData.regNo);
+
+            int lengthOfData = data.size();
+
+//            Bitmap some = data.get(0);
+
+            Bitmap bit1 = null,bit2 = null ,bit3 = null,bit4 = null;
+
+            if(lengthOfData==4){
+                bit1 = data.get(0);
+                bit2 = data.get(1);
+                bit3 = data.get(2);
+                bit4 = data.get(3);
+            }
+            if(lengthOfData==3){
+                bit1 = data.get(0);
+                bit2 = data.get(1);
+                bit3 = data.get(2);
+            }
+            if(lengthOfData==2){
+                bit1 = data.get(0);
+                bit2 = data.get(1);
+            }
+            if(lengthOfData==1){
+                bit1 = data.get(0);
+            }
+
+
+
+            for(int i=0;i<lengthOfData;i++){
+                switch (i){
+                    case 0 :
+
+                        if(bit1!=null){
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            Bitmap someBitmap = Bitmap.createScaledBitmap(bit1,200,200,true);
+                            someBitmap.compress(Bitmap.CompressFormat.JPEG,0,stream1);
+                            byte[] byteArr1 = stream1.toByteArray();
+                            encoded1 = Base64.encodeToString(byteArr1,Base64.NO_PADDING);
+                        }
+
+//                        ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+//                        Bitmap someBitmap = data.get(i);
+//                        someBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream1);
+//                        byte[] byteArray1 = stream1.toByteArray();
+//                        encoded1 = Base64.encodeToString(byteArray1, Base64.DEFAULT);
+                        break;
+
+                    case 1 :
+
+                        if(bit2!=null){
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            Bitmap someBitmap = Bitmap.createScaledBitmap(bit2,200,200,true);
+                            someBitmap.compress(Bitmap.CompressFormat.JPEG,0,stream1);
+                            byte[] byteArr1 = stream1.toByteArray();
+                            encoded1 = Base64.encodeToString(byteArr1,Base64.NO_PADDING);
+                        }
+
+
+//                        ByteArrayOutputStream stream2 = new ByteArrayOutputStream();
+//                        Bitmap someBitmap2 = data.get(i);
+//                        someBitmap2.compress(Bitmap.CompressFormat.JPEG, 50, stream2);
+//                        byte[] byteArray2 = stream2.toByteArray();
+//                        encoded2 = Base64.encodeToString(byteArray2, Base64.DEFAULT);
+//                        paramsImages.put("Image1",encoded);
+                        break;
+
+                    case 2 :
+
+                        if(bit3!=null){
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            Bitmap someBitmap = Bitmap.createScaledBitmap(bit3,200,200,true);
+                            someBitmap.compress(Bitmap.CompressFormat.JPEG,0,stream1);
+                            byte[] byteArr1 = stream1.toByteArray();
+                            encoded1 = Base64.encodeToString(byteArr1,Base64.NO_PADDING);
+                        }
+
+
+
+//                        ByteArrayOutputStream stream3 = new ByteArrayOutputStream();
+//                        Bitmap someBitmap3 = data.get(i);
+//                        someBitmap3.compress(Bitmap.CompressFormat.JPEG, 50, stream3);
+//                        byte[] byteArray3 = stream3.toByteArray();
+//                        encoded3 = Base64.encodeToString(byteArray3, Base64.DEFAULT);
+//                        paramsImages.put("Image1",encoded);
+                        break;
+
+                    case 3 :
+
+                        if(bit4!=null){
+                            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+                            Bitmap someBitmap = Bitmap.createScaledBitmap(bit4,200,200,true);
+                            someBitmap.compress(Bitmap.CompressFormat.JPEG,0,stream1);
+                            byte[] byteArr1 = stream1.toByteArray();
+                            encoded1 = Base64.encodeToString(byteArr1,Base64.NO_PADDING);
+                        }
+
+
+//                        ByteArrayOutputStream stream4 = new ByteArrayOutputStream();
+//                        Bitmap someBitmap4 = data.get(i);
+//                        someBitmap4.compress(Bitmap.CompressFormat.JPEG, 50, stream4);
+//                        byte[] byteArray4 = stream4.toByteArray();
+//                        encoded4 = Base64.encodeToString(byteArray4, Base64.DEFAULT);
+//                        paramsImages.put("Image1",encoded);
+                        break;
+                }
+            }
+
+
+            paramsImages.put("Image1", encoded1);
+            paramsImages.put("Image2", encoded2);
+            paramsImages.put("Image3", encoded3);
+            paramsImages.put("Image4", encoded4);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+            stopLoading();
+        }
+
+
+        JsonObjectRequest SelectedImageRequest = new JsonObjectRequest(Request.Method.POST, cameraImagesURL, paramsImages,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        stopLoading();
                         mPager.setPagingEnabled(true);
                         mPager.setCurrentItem(0);
                         mPager.setPagingEnabled(false);
-                        stopLoading();
                         showResultDialogBox();
                     }
                 },
@@ -533,13 +743,18 @@ public class Home extends AppCompatActivity implements DrawingFragment.ButtonFor
                 }
         );
 
-        Log.d("params",paramsVector.toString());
 
-        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(vectorImageRequest);
+        VolleySingelton.getMy_Volley_Singelton_Reference().getRequestQueue().add(SelectedImageRequest);
         mySingeltonData.setVector1Bitmap(null);
         mySingeltonData.setVector2Bitmap(null);
         mySingeltonData.setVector3Bitmap(null);
         mySingeltonData.setVector4Bitmap(null);
+
+
+
+
+
+
     }
 
     private int getIntFromString(String str){

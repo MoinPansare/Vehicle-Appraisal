@@ -99,6 +99,8 @@
 
         </com.github.florent37.materialtextfield.MaterialTextField>
 
+
+
         <Button
             android:textSize="18sp"
             android:background="@color/primaryColor"
@@ -135,7 +137,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/newton_cradle_loading"
-        android:text="LOADING..."
+        android:text=""
         android:textColor="@android:color/white"
         android:layout_marginTop="-20dp" />
 
